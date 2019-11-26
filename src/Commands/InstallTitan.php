@@ -55,10 +55,10 @@ class InstallTitan extends Command
         $this->sendBanner([
             "Installation Configuration Complete!"
         ]);
-
-        if ($this->confirm("Would you like to serve your application over artisan?")) {
-            \Artisan::call("serve");
-        }
+        $this->sendBanner([
+            "You can run your game via the following command",
+            "php artisan serve"
+        ]);
     }
 
     public function sendBanner($banner): void
@@ -107,8 +107,8 @@ class InstallTitan extends Command
 
         try {
             $this->setupDatabase();
-            \DB::connection()->getPdo();
             $this->saveEnv();
+            \DB::connection()->getPdo();
         } catch (\Exception $exception) {
             $this->config['db.host'] = null;
             $this->config['db.username'] = null;
@@ -181,7 +181,6 @@ class InstallTitan extends Command
 
     private function saveEnv(): void
     {
-
         $this->setEnvironmentValue('DB_HOST', $this->config['db.host']);
         $this->setEnvironmentValue('DB_USERNAME', $this->config['db.username']);
         $this->setEnvironmentValue('DB_PASSWORD', $this->config['db.password']);
@@ -216,10 +215,12 @@ class InstallTitan extends Command
 
     private function setupDatabase(): void
     {
+        \DB::purge('mysql');
         config()->set('database.connections.mysql.host', $this->config['db.host']);
         config()->set('database.connections.mysql.database', $this->config['db.database']);
         config()->set('database.connections.mysql.username', $this->config['db.username']);
         config()->set('database.connections.mysql.password', $this->config['db.password']);
+
     }
 
     public function setEnvironmentValue($envKey, $envValue)
@@ -246,7 +247,7 @@ class InstallTitan extends Command
 
         foreach($env as $key => $value)
         {
-            if (stripos($value, ' ') !== false) {
+            if (stripos($value, ' ') !== false && (!Str::startsWith($value, '"') && !Str::endsWith($value, '"'))) {
                 $value = "\"{$value}\"";
             }
             $envFileString .= "{$key}={$value}\n";

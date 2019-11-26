@@ -7,6 +7,12 @@
 ## Install
 `composer require pbbg-io/titan-framework`
 
+CD into that directory then run
+
+`php artisan titan:install`
+
+And follow the instructions
+
 ## Usage
 Write a few lines about the usage of this package.
 

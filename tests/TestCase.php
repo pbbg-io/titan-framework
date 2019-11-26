@@ -1,6 +1,6 @@
 <?php
 
-namespace Pbbg-io\TitanFramework\Tests;
+namespace PbbgIo\TitanFramework\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -16,7 +16,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            \Pbbg-io\TitanFramework\TitanFrameworkServiceProvider::class,
+            \PbbgIo\TitanFramework\TitanFrameworkServiceProvider::class,
         ];
     }
 

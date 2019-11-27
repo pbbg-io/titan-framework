@@ -6,4 +6,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 require('./bootstrap.bundle');
 
-require('./sb-admin.js')
+require('./sb-admin.js');
+
+require('./datatables/dataTables.bootstrap4');

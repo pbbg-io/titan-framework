@@ -13,7 +13,8 @@
         }
     ],
     "require": {
-        "cviebrock/eloquent-sluggable": "^6.0"
+        "cviebrock/eloquent-sluggable": "^6.0",
+        "yajra/laravel-datatables-oracle": "~9.0"
     },
     "autoload": {
         "psr-4": {

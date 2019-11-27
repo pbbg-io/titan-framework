@@ -52,6 +52,15 @@ Route::group([
 
         Route::get('/extensions/{slug}/uninstall', 'ExtensionController@uninstall')
             ->name('admin.extensions.uninstall');
+
+        Route::get('/users', 'UserController@index')
+            ->name('admin.users.index');
+
+        Route::get('/users/datatable', 'UserController@datatable')
+            ->name('admin.users.datatable');
+
+        Route::get('/users/{user}', 'UserController@edit')
+            ->name('admin.users.edit');
     });
 
 });

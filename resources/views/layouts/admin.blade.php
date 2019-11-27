@@ -12,7 +12,7 @@
     <title>{{ config('app.name', 'Titan') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ mix('js/admin.js') }}" defer></script>
+    <script src="{{ mix('js/admin.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -61,7 +61,7 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('admin.users.index') }}">
                 <i class="fas fa-fw fa-users"></i>
                 <span>Users</span>
             </a>
@@ -252,5 +252,6 @@
     </div>
 </div>
 
+@yield('scripts')
 </body>
 </html>

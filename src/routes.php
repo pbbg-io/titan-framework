@@ -59,8 +59,36 @@ Route::group([
         Route::get('/users/datatable', 'UserController@datatable')
             ->name('admin.users.datatable');
 
+        Route::get('users/create', 'UserController@create')
+            ->name('admin.users.create');
+
+        Route::post('users/create', 'UserController@store')
+            ->name('admin.users.store');
+
         Route::get('/users/{user}', 'UserController@edit')
             ->name('admin.users.edit');
+
+        Route::post('/users/{user}', 'UserController@update')
+            ->name('admin.users.update');
+
+
+        Route::get('/cronjobs', 'CronjobController@index')
+            ->name('admin.cronjobs.index');
+
+        Route::get('/cronjobs/{job}', 'CronjobController@edit')
+            ->name('admin.cronjobs.edit');
+
+        Route::post('/cronjobs/{job}', 'CronjobController@update')
+            ->name('admin.cronjobs.update');
+
+        Route::get('/settings', 'SettingController@index')
+            ->name('admin.settings.index');
+
+        Route::get('/settings/{setting}', 'SettingController@edit')
+            ->name('admin.settings.edit');
+
+        Route::post('/settings/{setting}', 'SettingController@update')
+            ->name('admin.settings.update');
     });
 
 });

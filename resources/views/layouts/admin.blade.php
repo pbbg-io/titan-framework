@@ -38,7 +38,7 @@
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-robot"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">Titan <sup>1</sup></div>
+            <div class="sidebar-brand-text mx-3">Titan <sup>{{ config('titan.version') }}</sup></div>
         </a>
 
         <!-- Divider -->
@@ -73,7 +73,7 @@
             </a>
         </li>
         <li class="nav-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/settings')) active @endif">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('admin.settings.index') }}">
                 <i class="fas fa-fw fa-cog"></i>
                 <span>Settings</span>
             </a>
@@ -82,6 +82,12 @@
             <a class="nav-link" href="{{ route('admin.extensions.index') }}">
                 <i class="fas fa-fw fa-puzzle-piece"></i>
                 <span>Extensions</span>
+            </a>
+        </li>
+        <li class="nav-item @if(request()->path() === 'admin/cronjobs') active @endif">
+            <a class="nav-link" href="{{ route('admin.cronjobs.index') }}">
+                <i class="fas fa-fw fa-stopwatch"></i>
+                <span>Cronjobs</span>
             </a>
         </li>
 

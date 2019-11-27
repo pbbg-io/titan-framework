@@ -2,6 +2,7 @@
 
 namespace PbbgIo\TitanFramework\Commands;
 
+use App\User;
 use Carbon\Carbon;
 use Carbon\Laravel\ServiceProvider;
 use Illuminate\Console\Command;
@@ -22,8 +23,6 @@ class RefreshExtensionsCache extends Command
      * @var string
      */
     protected $description = 'Flush the caches of Titan extensions';
-
-    private $schema = [];
 
     /**
      * Create a new command instance.
@@ -51,12 +50,25 @@ class RefreshExtensionsCache extends Command
         $setting = Settings::firstOrNew([
             'key'   =>  'remote_version'
         ]);
-        $setting->value = '1.0.0';
+        $setting->value = $this->getRemoteVersion();
         $setting->save();
-
-
     }
 
+    /**
+     * Get the latest version of the software that's available
+     *
+     * @return string
+     */
+    private function getRemoteVersion(): string {
+        return '1.0.0';
+    }
+
+    /**
+     * Get extensions from a remote source
+     *
+     * @todo Grab them remotely then cache them
+     * @throws \Exception
+     */
     private function getExtensions(): void
     {
 

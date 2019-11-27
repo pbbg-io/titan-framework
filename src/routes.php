@@ -1,10 +1,10 @@
 <?php
 Route::group([
-    'namespace' =>  'PbbgIo\TitanFramework\Http\Controllers',
-    'middleware'    =>  [
+    'namespace' => 'PbbgIo\TitanFramework\Http\Controllers',
+    'middleware' => [
         'web'
     ]
-], function() {
+], function () {
 
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
     Route::post('login', 'Auth\LoginController@login');
@@ -34,10 +34,24 @@ Route::group([
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::group([
-        'prefix'    =>  'admin',
-        'namespace' =>  'Admin'
-    ], function() {
-        Route::get('/', 'HomeController@index');
+        'prefix' => 'admin',
+        'namespace' => 'Admin',
+        'middleware' => 'auth'
+    ], function () {
+        Route::get('/', 'HomeController@index')
+            ->name('admin.home');
+
+        Route::get('/extensions', 'ExtensionController@index')
+            ->name('admin.extensions.index');
+
+        Route::get('/extensions/{slug}', 'ExtensionController@manage')
+            ->name('admin.extensions.manage');
+
+        Route::get('/extensions/{slug}/install', 'ExtensionController@install')
+            ->name('admin.extensions.install');
+
+        Route::get('/extensions/{slug}/uninstall', 'ExtensionController@uninstall')
+            ->name('admin.extensions.uninstall');
     });
 
 });

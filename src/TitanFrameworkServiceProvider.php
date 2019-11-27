@@ -2,12 +2,16 @@
 
 namespace PbbgIo\TitanFramework;
 
+use App\User;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use PbbgIo\TitanFramework\Commands\RefreshExtensionsCache;
 use PbbgIo\TitanFramework\Commands\InstallTitan;
 use PbbgIo\TitanFramework\Commands\PublishTitanResources;
 use PbbgIo\TitanFramework\Commands\UpdateTitan;
+use PbbgIo\TitanFramework\Models\Settings;
 
 class TitanFrameworkServiceProvider extends ServiceProvider
 {
@@ -20,7 +24,6 @@ class TitanFrameworkServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-
         $this->loadRoutesFrom(__DIR__ . '/routes.php');
 
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
@@ -29,6 +32,7 @@ class TitanFrameworkServiceProvider extends ServiceProvider
             InstallTitan::class,
             PublishTitanResources::class,
             UpdateTitan::class,
+            RefreshExtensionsCache::class
         ]);
 
         $this->publishes([
@@ -38,6 +42,7 @@ class TitanFrameworkServiceProvider extends ServiceProvider
         ], 'titan');
 
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'titan');
+
 
         $extensions = resolve('extensions');
 
@@ -67,6 +72,7 @@ class TitanFrameworkServiceProvider extends ServiceProvider
      */
     public function register()
     {
+
         $this->app->singleton('extensions', function () {
 
             $ext = collect();
@@ -77,5 +83,14 @@ class TitanFrameworkServiceProvider extends ServiceProvider
 
             return $ext;
         });
+
+        $this->app->singleton('settings', function() {
+            return Settings::all();
+        });
+
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/titan.php', 'titan'
+        );
+
     }
 }

@@ -19,6 +19,7 @@ class CreateExtensionsTable extends Migration
             $table->string('author');
             $table->string('url');
             $table->string('version')->default('0.0.1');
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }

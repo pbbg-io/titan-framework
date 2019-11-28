@@ -201,7 +201,7 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-
+                @include('flash::message')
                 @yield('page')
 
             </div>

@@ -25,7 +25,7 @@ class CronCreateRequest extends FormRequest
     {
         return [
             'command'   =>  'required|string',
-            'expression'    =>  'required|string',
+            'cron'    =>  'required|string',
             'enabled'   =>  'sometimes|in:0,1'
         ];
     }

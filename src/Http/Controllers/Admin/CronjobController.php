@@ -18,6 +18,17 @@ class CronjobController extends Controller
         return view('titan::admin.cronjobs.create');
     }
 
+    public function edit(Cronjobs $cronjob) {
+
+        return view('titan::admin.cronjobs.edit', compact('cronjob'));
+    }
+
+    public function update(CronCreateRequest $request, Cronjobs $cronjob) {
+        $cronjob->fill($request->all())->save();
+        flash('Cron updated')->success();
+        return back();
+    }
+
     public function store(CronCreateRequest $request) {
         $cron = new Cronjobs();
         $cron->command = $request->input('command');

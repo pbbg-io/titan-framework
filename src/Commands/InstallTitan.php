@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use PbbgIo\TitanFramework\Models\Settings;
+use Spatie\Permission\Models\Role;
 
 class InstallTitan extends Command
 {
@@ -200,6 +201,12 @@ class InstallTitan extends Command
         $user->email = $this->config['admin.email'];
         $user->email_verified_at = new Carbon();
         $user->save();
+
+        $role = new Role();
+        $role->name = 'Super Admin';
+        $role->save();
+
+        $user->assignRole($role);
 
         Settings::create([
             'key' => 'game.owner',

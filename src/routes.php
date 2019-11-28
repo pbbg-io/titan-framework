@@ -36,7 +36,7 @@ Route::group([
     Route::group([
         'prefix' => 'admin',
         'namespace' => 'Admin',
-        'middleware' => 'auth'
+        'middleware' => ['auth', 'permission:admin'],
     ], function () {
         Route::get('/', 'HomeController@index')
             ->name('admin.home');
@@ -72,14 +72,15 @@ Route::group([
             ->name('admin.users.update');
 
 
-        Route::get('/cronjobs', 'CronjobController@index')
-            ->name('admin.cronjobs.index');
-
-        Route::get('/cronjobs/{job}', 'CronjobController@edit')
-            ->name('admin.cronjobs.edit');
-
-        Route::post('/cronjobs/{job}', 'CronjobController@update')
-            ->name('admin.cronjobs.update');
+        Route::resource('cronjobs', 'CronjobController')->names([
+            'index'    =>  'admin.cronjobs.index',
+            'create'    =>  'admin.cronjobs.create',
+            'store'    =>  'admin.cronjobs.store',
+            'update'    =>  'admin.cronjobs.update',
+            'edit'    =>  'admin.cronjobs.edit',
+            'delete'    =>  'admin.cronjobs.delete',
+            'destroy'    =>  'admin.cronjobs.destroy',
+        ]);
 
         Route::get('/settings', 'SettingController@index')
             ->name('admin.settings.index');

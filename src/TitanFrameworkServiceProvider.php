@@ -12,6 +12,8 @@ use PbbgIo\TitanFramework\Commands\InstallTitan;
 use PbbgIo\TitanFramework\Commands\PublishTitanResources;
 use PbbgIo\TitanFramework\Commands\UpdateTitan;
 use PbbgIo\TitanFramework\Models\Settings;
+use Spatie\Permission\Middlewares\PermissionMiddleware;
+use Spatie\Permission\Middlewares\RoleMiddleware;
 
 class TitanFrameworkServiceProvider extends ServiceProvider
 {
@@ -63,6 +65,10 @@ class TitanFrameworkServiceProvider extends ServiceProvider
             else
                 Log::warning("Trying to load {$serviceProvider} {$serviceProviderPath} but failed");
         }
+
+        \Gate::before(function ($user, $ability) {
+            return $user->hasRole('Super Admin') ? true : null;
+        });
     }
 
     /**

@@ -1,9 +1,9 @@
 @extends('titan::layouts.admin')
 @section('page')
+    <h1 class="h3 mb-4 text-gray-800">Current Users
+        <span class="float-right"><a href="{{ route('admin.users.create') }}" class="btn btn-primary">Create new</a> </span></h1>
+
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Users</h6>
-        </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

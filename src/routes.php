@@ -53,23 +53,8 @@ Route::group([
         Route::get('/extensions/{slug}/uninstall', 'ExtensionController@uninstall')
             ->name('admin.extensions.uninstall');
 
-        Route::get('/users', 'UserController@index')
-            ->name('admin.users.index');
-
         Route::get('/users/datatable', 'UserController@datatable')
             ->name('admin.users.datatable');
-
-        Route::get('users/create', 'UserController@create')
-            ->name('admin.users.create');
-
-        Route::post('users/create', 'UserController@store')
-            ->name('admin.users.store');
-
-        Route::get('/users/{user}', 'UserController@edit')
-            ->name('admin.users.edit');
-
-        Route::post('/users/{user}', 'UserController@update')
-            ->name('admin.users.update');
 
 
         Route::resource('cronjobs', 'CronjobController')->names([
@@ -80,6 +65,16 @@ Route::group([
             'edit'    =>  'admin.cronjobs.edit',
             'delete'    =>  'admin.cronjobs.delete',
             'destroy'    =>  'admin.cronjobs.destroy',
+        ]);
+
+        Route::resource('users', 'UserController')->names([
+            'index'    =>  'admin.users.index',
+            'create'    =>  'admin.users.create',
+            'store'    =>  'admin.users.store',
+            'update'    =>  'admin.users.update',
+            'edit'    =>  'admin.users.edit',
+            'delete'    =>  'admin.users.delete',
+            'destroy'    =>  'admin.users.destroy',
         ]);
 
         Route::get('/settings', 'SettingController@index')

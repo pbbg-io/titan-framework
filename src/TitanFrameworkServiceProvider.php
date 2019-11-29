@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use PbbgIo\TitanFramework\Commands\RefreshExtensionsCache;
 use PbbgIo\TitanFramework\Commands\InstallTitan;
 use PbbgIo\TitanFramework\Commands\PublishTitanResources;
+use PbbgIo\TitanFramework\Commands\SuperAdmin;
 use PbbgIo\TitanFramework\Commands\UpdateTitan;
 use PbbgIo\TitanFramework\Models\Settings;
 use Spatie\Permission\Middlewares\PermissionMiddleware;
@@ -34,7 +35,8 @@ class TitanFrameworkServiceProvider extends ServiceProvider
             InstallTitan::class,
             PublishTitanResources::class,
             UpdateTitan::class,
-            RefreshExtensionsCache::class
+            RefreshExtensionsCache::class,
+            SuperAdmin::class,
         ]);
 
         $this->publishes([

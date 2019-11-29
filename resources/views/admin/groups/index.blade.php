@@ -1,8 +1,8 @@
 @extends('titan::layouts.admin')
 
 @section('page')
-    <h1 class="h3 mb-4 text-gray-800">Current Cronjobs
-        <span class="float-right"><a href="{{ route('admin.cronjobs.create') }}" class="btn btn-primary">Create new</a> </span></h1>
+    <h1 class="h3 mb-4 text-gray-800">Current Groups
+        <span class="float-right"><a href="{{ route('admin.groups.create') }}" class="btn btn-primary">Create new</a> </span></h1>
 
 
     <div class="card shadow mb-4">
@@ -11,27 +11,29 @@
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
                     <tr>
-                        <th>Command</th>
-                        <th>Expression</th>
-                        <th>Enabled</th>
+                        <th>Name</th>
+                        <th>Formatted</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @forelse($jobs as $job)
+                    @forelse($groups as $group)
                         <tr>
-                            <td class="align-middle">{{ $job->command }}</td>
-                            <td class="align-middle">{{ $job->cron }}</td>
-                            <td class="align-middle">{{ $job->enabled ? 'True' : 'False' }}</td>
+                            <td class="align-middle">{{ $group->name }}</td>
                             <td class="align-middle">
-                                <a href="{{ route('admin.cronjobs.edit', $job) }}" class="btn btn-primary">Edit</a>
-                                <a href="{{ route('admin.cronjobs.destroy', $job) }}" class="btn btn-danger delete">Delete</a>
+                                {!! $group->prefix !!}
+                                {{ $group->name }}
+                                {!! $group->suffix !!}
+                            </td>
+                            <td class="align-middle">
+                                <a href="{{ route('admin.groups.edit', $group) }}" class="btn btn-primary">Edit</a>
+                                <a href="{{ route('admin.groups.destroy', $group) }}" class="btn btn-danger delete">Delete</a>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="999">
-                                <div class="alert alert-info">There are no scheduled jobs</div>
+                            <td colspan="9999">
+                                <div class="alert alert-info text-center">There is no data to see</div>
                             </td>
                         </tr>
                     @endforelse
@@ -46,7 +48,7 @@
     <script>
         (() => {
             $(".delete").on('click', function(e) {
-                if(confirm('Are you sure you want to delete this cronjob?') === true){
+                if(confirm('Are you sure you want to delete this?') === true){
                     window.axios.delete($(this).attr('href'));
                     location.reload();
                 }

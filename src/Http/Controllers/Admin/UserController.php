@@ -19,7 +19,6 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-
         return view('titan::admin.users.edit', compact('user'));
     }
 
@@ -38,6 +37,12 @@ class UserController extends Controller
 
         $user->save();
 
+        if($request->has('roles'))
+        {
+            $user->syncRoles($request->input('roles'));
+        }
+
+
         flash('User "' . $user->name . '" has been created')->success();
 
         return redirect()->route('admin.users.edit', $user);
@@ -51,6 +56,11 @@ class UserController extends Controller
             $user->password = bcrypt('password');
 
         $user->save();
+
+        if($request->has('roles'))
+        {
+            $user->syncRoles($request->input('roles'));
+        }
 
         flash('User "' . $user->name . '" has been updated')->success();
 

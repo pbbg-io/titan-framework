@@ -36,7 +36,7 @@ Route::group([
     Route::group([
         'prefix' => 'admin',
         'namespace' => 'Admin',
-        'middleware' => ['auth', 'permission:admin'],
+        'middleware' => ['auth', 'permission:admin', 'update_last_move'],
     ], function () {
         Route::get('/', 'HomeController@index')
             ->name('admin.home');
@@ -75,6 +75,16 @@ Route::group([
             'edit'    =>  'admin.users.edit',
             'delete'    =>  'admin.users.delete',
             'destroy'    =>  'admin.users.destroy',
+        ]);
+
+        Route::resource('groups', 'GroupController')->names([
+            'index'    =>  'admin.groups.index',
+            'create'    =>  'admin.groups.create',
+            'store'    =>  'admin.groups.store',
+            'update'    =>  'admin.groups.update',
+            'edit'    =>  'admin.groups.edit',
+            'delete'    =>  'admin.groups.delete',
+            'destroy'    =>  'admin.groups.destroy',
         ]);
 
         Route::get('/settings', 'SettingController@index')

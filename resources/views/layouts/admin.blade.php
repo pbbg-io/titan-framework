@@ -67,7 +67,7 @@
             </a>
         </li>
         <li class="nav-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/groups')) active @endif">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('admin.groups.index') }}">
                 <i class="fas fa-fw fa-users-cog"></i>
                 <span>Groups</span>
             </a>

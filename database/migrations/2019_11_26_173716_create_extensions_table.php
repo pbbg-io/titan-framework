@@ -17,7 +17,7 @@ class CreateExtensionsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('author');
-            $table->string('url');
+            $table->string('url')->nullable();
             $table->string('version')->default('0.0.1');
             $table->string('slug')->unique();
             $table->timestamps();

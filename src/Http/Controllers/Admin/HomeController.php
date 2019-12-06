@@ -31,7 +31,7 @@ class HomeController extends Controller
         $stats['players'] = User::count();
         $stats['version_update'] = $this->needsEngineUpdate();
         $stats['current_version'] = config('titan.version');
-        $stats['latest_version'] = resolve('settings')->firstWhere('key', 'remote_version')->value ?? null;
+        $stats['latest_version'] = resolve('settings')->firstWhere('key', 'remote_version')->value ?? 0;
         $stats['players_online'] = User::where('last_move', '>', (new Carbon())->subHour())->count();
         $stats['players_registered_today'] = User::where('created_at', '>', (new Carbon())->startOfDay())->count();
 
@@ -40,8 +40,8 @@ class HomeController extends Controller
 
     public function needsEngineUpdate(): bool
     {
-        $remoteEngineVersion = '1.0.1';
-        $remoteVersion = version_compare(config('titan.version'), resolve('settings')->firstWhere('key', 'remote_version')->value ?? null);
+        $remoteEngineVersion = resolve('settings')->firstWhere('key', 'remote_version')->value ?? 0;
+        $remoteVersion = version_compare(config('titan.version'), $remoteEngineVersion);
 
         return $remoteVersion === -1;
     }

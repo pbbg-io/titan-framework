@@ -5,6 +5,7 @@ namespace PbbgIo\TitanFramework\Commands;
 use App\User;
 use Carbon\Carbon;
 use Carbon\Laravel\ServiceProvider;
+use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use PbbgIo\TitanFramework\Models\Settings;
 
@@ -60,7 +61,11 @@ class RefreshExtensionsCache extends Command
      * @return string
      */
     private function getRemoteVersion(): string {
-        return '1.0.0';
+
+        $http = new Client();
+        $res = $http->get('https://titan.pbbg.io/api/version')->getBody()->getContents();
+        $res = json_decode($res);
+        return $res->version;
     }
 
     /**

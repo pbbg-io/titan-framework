@@ -6,6 +6,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
+use PbbgIo\TitanFramework\Cronjobs;
 use PbbgIo\TitanFramework\Models\Settings;
 use Spatie\Permission\Models\Role;
 
@@ -53,6 +54,7 @@ class InstallTitan extends Command
         $this->sendBanner("Almost done now, just need some details to set you up an admin account");
         $this->askUserQuestions();
         $this->saveConfig();
+        $this->installCrons();
         $this->sendBanner([
             "Installation Configuration Complete!"
         ]);
@@ -228,6 +230,14 @@ class InstallTitan extends Command
         config()->set('database.connections.mysql.username', $this->config['db.username']);
         config()->set('database.connections.mysql.password', $this->config['db.password']);
 
+    }
+
+    private function installCrons(): void {
+        $cron = new Cronjobs();
+        $cron->command = 'titan:extension:flush';
+        $cron->cron = "0 0 * * *";
+        $cron->enabled = true;
+        $cron->save();
     }
 
     public function setEnvironmentValue($envKey, $envValue)

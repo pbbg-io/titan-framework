@@ -2,8 +2,6 @@
 
 namespace PbbgIo\TitanFramework;
 
-use App\User;
-use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -13,8 +11,6 @@ use PbbgIo\TitanFramework\Commands\PublishTitanResources;
 use PbbgIo\TitanFramework\Commands\SuperAdmin;
 use PbbgIo\TitanFramework\Commands\UpdateTitan;
 use PbbgIo\TitanFramework\Models\Settings;
-use Spatie\Permission\Middlewares\PermissionMiddleware;
-use Spatie\Permission\Middlewares\RoleMiddleware;
 
 class TitanFrameworkServiceProvider extends ServiceProvider
 {
@@ -44,6 +40,7 @@ class TitanFrameworkServiceProvider extends ServiceProvider
             __DIR__ . '/../resources/sass' => resource_path('sass'),
             __DIR__ . '/../resources/js' => resource_path('js'),
         ], 'titan');
+
 
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'titan');
 

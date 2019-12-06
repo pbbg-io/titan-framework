@@ -3,3 +3,9 @@
 @import "admin/fontawesome-free/css/all.min.css";
 @import "admin/sb-admin-2";
 @import "admin/datatables/dataTables.bootstrap4.css";
+
+tbody.align-middle {
+    tr > td {
+        vertical-align: middle !important;
+    }
+}

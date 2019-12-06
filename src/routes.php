@@ -95,6 +95,9 @@ Route::group([
 
         Route::post('/settings/{setting}', 'SettingController@update')
             ->name('admin.settings.update');
+
+        Route::post('/search', 'SearchController@index')
+            ->name('admin.search');
     });
 
 });

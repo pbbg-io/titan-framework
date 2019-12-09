@@ -9,3 +9,7 @@ require('./bootstrap.bundle');
 require('./sb-admin.js');
 
 require('./datatables/dataTables.bootstrap4');
+
+require('jquery-ui');
+
+require('./nestedSortable');

@@ -41,9 +41,7 @@ class TitanFrameworkServiceProvider extends ServiceProvider
             __DIR__ . '/../resources/js' => resource_path('js'),
         ], 'titan');
 
-
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'titan');
-
 
         $extensions = resolve('extensions');
 
@@ -87,6 +85,11 @@ class TitanFrameworkServiceProvider extends ServiceProvider
             } catch (\Exception $exception) {}
 
             return $ext;
+        });
+
+        $this->app->singleton('menu', function() {
+            $menu = Menu::with('items')->whereEnabled(true)->get();
+            return $menu;
         });
 
         $this->app->singleton('settings', function() {

@@ -12,6 +12,9 @@
     <title>{{ config('app.name', 'Titan') }}</title>
 
     <!-- Scripts -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
     <script src="{{ mix('js/admin.js') }}"></script>
 
     <!-- Fonts -->
@@ -88,6 +91,12 @@
             <a class="nav-link" href="{{ route('admin.cronjobs.index') }}">
                 <i class="fas fa-fw fa-stopwatch"></i>
                 <span>Cronjobs</span>
+            </a>
+        </li>
+        <li class="nav-item @if(request()->path() === 'admin/menu') active @endif">
+            <a class="nav-link" href="{{ route('admin.menu.index') }}">
+                <i class="fas fa-fw fa-bars"></i>
+                <span>Menus</span>
             </a>
         </li>
 

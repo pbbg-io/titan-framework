@@ -31,6 +31,9 @@ Route::group([
     Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
     Route::post('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
+    Route::get('/', function() {
+        return redirect()->route('home');
+    });
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::group([
@@ -98,6 +101,27 @@ Route::group([
 
         Route::post('/search', 'SearchController@index')
             ->name('admin.search');
+
+        Route::resource('menus', 'MenuController')->names([
+            'index' =>  'admin.menu.index',
+            'create' =>  'admin.menu.create',
+            'store' =>  'admin.menu.store',
+            'update' =>  'admin.menu.update',
+            'edit' =>  'admin.menu.edit',
+            'delete' =>  'admin.menu.delete',
+            'destroy' =>  'admin.menu.destroy',
+        ]);
+
+
+        Route::put('menu/items/{menu}/sort', 'MenuController@sort')
+            ->name('admin.menu.sort');
+        
+        Route::post('menu/items/{menu}/item', 'MenuController@addItem')
+            ->name('admin.menu.add');
+
+        Route::delete('menu/items', 'MenuController@deleteItem')
+        ->name('admin.menu.item.delete');
+
     });
 
 });

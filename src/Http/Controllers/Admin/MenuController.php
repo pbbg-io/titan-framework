@@ -92,12 +92,7 @@ class MenuController extends Controller
         return redirect()->back();
     }
 
-    public function delete(Menu $menu)
-    {
-
-    }
-
-    public function destroy(Menu $menu)
+    public function destroy(Menu $menu): void
     {
         $menu->items()->delete();
         $menu->delete();

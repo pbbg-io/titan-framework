@@ -72,7 +72,6 @@ class MenuController extends Controller
     {
         $item = new MenuItem();
         $item->name = $request->input('itemName');
-        $item->link = $request->input('itemLink');
         $item->route = $request->input('itemLink');
         $item->menu_id = $request->menu;
         $item->save();
@@ -93,13 +92,18 @@ class MenuController extends Controller
         return redirect()->back();
     }
 
-    public function delete()
+    public function delete(Menu $menu)
     {
 
     }
 
-    public function destroy()
+    public function destroy(Menu $menu)
     {
+        $menu->items()->delete();
+        $menu->delete();
 
+        flash("Menu has been deleted")->success();
+
+//        return redirect()->route('admin.menu.index');
     }
 }

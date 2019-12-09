@@ -1,7 +1,8 @@
 @extends('titan::layouts.admin')
 
 @section('page')
-    <h1 class="h3 mb-4 text-gray-800">Page Header</h1>
+    <h1 class="h3 mb-4 text-gray-800">Edit Menu <a href="{{ route('admin.menu.destroy', $menu) }}"
+                                                   class="btn btn-danger delete-button">Delete</a></h1>
 
     <div class="card shadow mb-4">
         <div class="card-body">
@@ -46,7 +47,7 @@
     <script type="text/javascript">
 
         let hasChanges = false,
-        ns = null;
+            ns = null;
 
         function setup() {
 
@@ -85,12 +86,12 @@
             e.preventDefault();
         });
 
-        ns.on('sort', function(e) {
+        ns.on('sort', function (e) {
             hasChanges = true;
         });
 
-        window.addEventListener('beforeunload', function(event) {
-            if(hasChanges === true){
+        window.addEventListener('beforeunload', function (event) {
+            if (hasChanges === true) {
                 event.preventDefault();
                 // Chrome requires returnValue to be set.
                 event.returnValue = 'You have unsaved changes';
@@ -98,12 +99,26 @@
             }
         });
 
-        $(document).on('click', ".remove-item", function(e) {
+        $(document).on('click', ".remove-item", function (e) {
             $(this).parent().remove();
 
             hasChanges = true;
 
             e.preventDefault()
+        });
+
+        $(".delete-button").on('click', function (e) {
+            e.preventDefault();
+
+            window.axios.delete('{{ route('admin.menu.destroy', $menu) }}')
+                .then(res => {
+                    console.log(res);
+                    window.location = '{{ route('admin.menu.index') }}';
+                }).catch(err => {
+                console.log(err)
+            });
+
+            return false;
         });
 
         $("#addItem").click(function (e) {
@@ -130,14 +145,14 @@
                     console.log(err.response.status);
                     console.log(err.response.data);
 
-                    if(err.response.status === 422) {
+                    if (err.response.status === 422) {
 
                         let messages = err.response.data.errors,
                             message = '';
 
                         console.log(messages.length, Object.keys(messages).length);
 
-                        for(let i in messages) {
+                        for (let i in messages) {
                             message += messages[i][0] + '\n\r'
                         }
                         // for(let i=0;i<Object.keys(messages).length;i++)

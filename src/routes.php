@@ -31,7 +31,7 @@ Route::group([
     Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
     Route::post('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
-    Route::get('/', function() {
+    Route::get('/', function () {
         return redirect()->route('home');
     });
     Route::get('/home', 'HomeController@index')->name('home');
@@ -61,33 +61,33 @@ Route::group([
 
 
         Route::resource('cronjobs', 'CronjobController')->names([
-            'index'    =>  'admin.cronjobs.index',
-            'create'    =>  'admin.cronjobs.create',
-            'store'    =>  'admin.cronjobs.store',
-            'update'    =>  'admin.cronjobs.update',
-            'edit'    =>  'admin.cronjobs.edit',
-            'delete'    =>  'admin.cronjobs.delete',
-            'destroy'    =>  'admin.cronjobs.destroy',
+            'index' => 'admin.cronjobs.index',
+            'create' => 'admin.cronjobs.create',
+            'store' => 'admin.cronjobs.store',
+            'update' => 'admin.cronjobs.update',
+            'edit' => 'admin.cronjobs.edit',
+            'delete' => 'admin.cronjobs.delete',
+            'destroy' => 'admin.cronjobs.destroy',
         ]);
 
         Route::resource('users', 'UserController')->names([
-            'index'    =>  'admin.users.index',
-            'create'    =>  'admin.users.create',
-            'store'    =>  'admin.users.store',
-            'update'    =>  'admin.users.update',
-            'edit'    =>  'admin.users.edit',
-            'delete'    =>  'admin.users.delete',
-            'destroy'    =>  'admin.users.destroy',
+            'index' => 'admin.users.index',
+            'create' => 'admin.users.create',
+            'store' => 'admin.users.store',
+            'update' => 'admin.users.update',
+            'edit' => 'admin.users.edit',
+            'delete' => 'admin.users.delete',
+            'destroy' => 'admin.users.destroy',
         ]);
 
         Route::resource('groups', 'GroupController')->names([
-            'index'    =>  'admin.groups.index',
-            'create'    =>  'admin.groups.create',
-            'store'    =>  'admin.groups.store',
-            'update'    =>  'admin.groups.update',
-            'edit'    =>  'admin.groups.edit',
-            'delete'    =>  'admin.groups.delete',
-            'destroy'    =>  'admin.groups.destroy',
+            'index' => 'admin.groups.index',
+            'create' => 'admin.groups.create',
+            'store' => 'admin.groups.store',
+            'update' => 'admin.groups.update',
+            'edit' => 'admin.groups.edit',
+            'delete' => 'admin.groups.delete',
+            'destroy' => 'admin.groups.destroy',
         ]);
 
         Route::get('/settings', 'SettingController@index')
@@ -103,24 +103,24 @@ Route::group([
             ->name('admin.search');
 
         Route::resource('menus', 'MenuController')->names([
-            'index' =>  'admin.menu.index',
-            'create' =>  'admin.menu.create',
-            'store' =>  'admin.menu.store',
-            'update' =>  'admin.menu.update',
-            'edit' =>  'admin.menu.edit',
-            'delete' =>  'admin.menu.delete',
-            'destroy' =>  'admin.menu.destroy',
+            'index' => 'admin.menu.index',
+            'create' => 'admin.menu.create',
+            'store' => 'admin.menu.store',
+            'update' => 'admin.menu.update',
+            'edit' => 'admin.menu.edit',
+            'delete' => 'admin.menu.delete',
+            'destroy' => 'admin.menu.destroy',
         ]);
 
 
         Route::put('menu/items/{menu}/sort', 'MenuController@sort')
             ->name('admin.menu.sort');
-        
+
         Route::post('menu/items/{menu}/item', 'MenuController@addItem')
             ->name('admin.menu.add');
 
         Route::delete('menu/items', 'MenuController@deleteItem')
-        ->name('admin.menu.item.delete');
+            ->name('admin.menu.item.delete');
 
     });
 

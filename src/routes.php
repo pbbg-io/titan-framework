@@ -60,6 +60,9 @@ Route::group([
             ->name('admin.users.datatable');
 
 
+        Route::post('/cronjobs/run', 'CronjobController@run')
+            ->name('admin.cronjobs.run');
+
         Route::resource('cronjobs', 'CronjobController')->names([
             'index' => 'admin.cronjobs.index',
             'create' => 'admin.cronjobs.create',

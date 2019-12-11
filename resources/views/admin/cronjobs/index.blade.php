@@ -24,8 +24,9 @@
                             <td class="align-middle">{{ $job->cron }}</td>
                             <td class="align-middle">{{ $job->enabled ? 'True' : 'False' }}</td>
                             <td class="align-middle">
-                                <a href="{{ route('admin.cronjobs.edit', $job) }}" class="btn btn-primary">Edit</a>
-                                <a href="{{ route('admin.cronjobs.destroy', $job) }}" class="btn btn-danger delete">Delete</a>
+                                <a href="{{ route('admin.cronjobs.edit', $job) }}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i> Edit</a>
+                                <a href="{{ route('admin.cronjobs.destroy', $job) }}" class="btn btn-danger delete"><i class="fas fa-times"></i> Delete</a>
+                                <a href="{{ route('admin.cronjobs.run') }}" class="btn btn-warning float-right" data-run="{{ $job->command }}"><i class="fas fa-sync"></i> Run</a>
                             </td>
                         </tr>
                     @empty
@@ -50,6 +51,21 @@
                     window.axios.delete($(this).attr('href'));
                     location.reload();
                 }
+
+                e.preventDefault();
+            });
+
+            $("[data-run]").on('click', function(e) {
+                $(this).find("i").addClass('fa-spin');
+                window.axios.post($(this).attr('href'), {
+                    command: $(this).attr('data-run')
+                })
+                .then(res => {
+                    alert("Cronjob successfully ran")
+                })
+                .finally(res => {
+                    $(this).find("i").removeClass('fa-spin');
+                });
 
                 e.preventDefault();
             })

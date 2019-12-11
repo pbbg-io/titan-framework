@@ -77,40 +77,9 @@ class RefreshExtensionsCache extends Command
     private function getExtensions(): void
     {
 
-        $extensions = [
-            [
-                'name' => 'Hello World',
-                'description' => 'Hello World provides a very basic example of what an extension can do',
-                'version' => '1.0.0',
-                'authors' => [
-                    [
-                        'name' => 'Ian',
-                        'email' => 'ian@pbbg.io'
-                    ]
-                ],
-                'path'  =>  'ian/hello-world',
-                'slug' => 'hello-world',
-                'rating' => '4.0',
-                'ratings' => 20,
-                'installs' => 3237
-            ],
-            [
-                'name' => 'Test World',
-                'description' => 'Test World provides a very basic example of what an extension can do',
-                'version' => '1.0.0',
-                'authors' => [
-                    [
-                        'name' => 'Ian',
-                        'email' => 'ian@pbbg.io'
-                    ]
-                ],
-                'path'  =>  'ian/test-world',
-                'slug' => 'test-world',
-                'rating' => '3.0',
-                'ratings' => 174,
-                'installs' => 1474
-            ],
-        ];
+        $http = new Client();
+        $res = $http->get('https://titan.pbbg.io/api/extensions')->getBody()->getContents();
+        $extensions = json_decode($res);
 
         $this->schema['date'] = new Carbon();
         $this->schema['extensions'] = $extensions;

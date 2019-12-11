@@ -82,10 +82,13 @@ class RefreshExtensionsCache extends Command
                 'name' => 'Hello World',
                 'description' => 'Hello World provides a very basic example of what an extension can do',
                 'version' => '1.0.0',
-                'author' => [
-                    'name' => 'Ian',
-                    'email' => 'ian@pbbg.io'
+                'authors' => [
+                    [
+                        'name' => 'Ian',
+                        'email' => 'ian@pbbg.io'
+                    ]
                 ],
+                'path'  =>  'ian/hello-world',
                 'slug' => 'hello-world',
                 'rating' => '4.0',
                 'ratings' => 20,
@@ -95,10 +98,13 @@ class RefreshExtensionsCache extends Command
                 'name' => 'Test World',
                 'description' => 'Test World provides a very basic example of what an extension can do',
                 'version' => '1.0.0',
-                'author' => [
-                    'name' => 'Ian',
-                    'email' => 'ian@pbbg.io'
+                'authors' => [
+                    [
+                        'name' => 'Ian',
+                        'email' => 'ian@pbbg.io'
+                    ]
                 ],
+                'path'  =>  'ian/test-world',
                 'slug' => 'test-world',
                 'rating' => '3.0',
                 'ratings' => 174,

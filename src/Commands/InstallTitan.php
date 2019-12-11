@@ -55,6 +55,7 @@ class InstallTitan extends Command
         $this->askUserQuestions();
         $this->saveConfig();
         $this->installCrons();
+        $this->runCommands();
         $this->sendBanner([
             "Installation Configuration Complete!"
         ]);
@@ -240,7 +241,11 @@ class InstallTitan extends Command
         $cron->save();
     }
 
-    public function setEnvironmentValue($envKey, $envValue)
+    private function runCommands(): void {
+        $this->call(RefreshExtensionsCache::class);
+    }
+
+    public function setEnvironmentValue($envKey, $envValue): void
     {
         $envFile = app()->environmentFilePath();
         $str = file_get_contents($envFile);

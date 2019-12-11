@@ -64,6 +64,9 @@
                     console.log(res.data);
                     alert("Cronjob successfully ran, output given: " + res.data);
                 })
+                    .catch(err => {
+                        alert('That didn\'t quite work')
+                    })
                 .finally(res => {
                     $(this).find("i").removeClass('fa-spin');
                 });

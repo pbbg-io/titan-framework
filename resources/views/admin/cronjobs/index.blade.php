@@ -26,7 +26,7 @@
                             <td class="align-middle">
                                 <a href="{{ route('admin.cronjobs.edit', $job) }}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i> Edit</a>
                                 <a href="{{ route('admin.cronjobs.destroy', $job) }}" class="btn btn-danger delete"><i class="fas fa-times"></i> Delete</a>
-                                <a href="{{ route('admin.cronjobs.run') }}" class="btn btn-warning float-right" data-run="{{ $job->command }}"><i class="fas fa-sync"></i> Run</a>
+                                <a href="{{ route('admin.cronjobs.run') }}" class="btn btn-info float-right" data-run="{{ $job->command }}"><i class="fas fa-sync"></i> Run Now</a>
                             </td>
                         </tr>
                     @empty
@@ -61,7 +61,8 @@
                     command: $(this).attr('data-run')
                 })
                 .then(res => {
-                    alert("Cronjob successfully ran")
+                    console.log(res.data);
+                    alert("Cronjob successfully ran, output given: " + res.data);
                 })
                 .finally(res => {
                     $(this).find("i").removeClass('fa-spin');

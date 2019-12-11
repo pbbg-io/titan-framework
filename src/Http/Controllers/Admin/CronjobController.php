@@ -2,6 +2,7 @@
 
 namespace PbbgIo\TitanFramework\Http\Controllers\Admin;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -32,9 +33,9 @@ class CronjobController extends Controller
         return back();
     }
 
-    public function run(CronRunRequest $request): int {
+    public function run(CronRunRequest $request): JsonResponse {
         $output = \Artisan::call($request->input('command'));
-        return $output;
+        return response()->json(\Artisan::output());
     }
 
     public function store(CronCreateRequest $request): RedirectResponse {

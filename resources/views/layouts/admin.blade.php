@@ -112,7 +112,7 @@
             <li class="nav-item @if(\Illuminate\Support\Str::contains(request()->path(), '/extensions/' . $extension->slug)) active @endif">
                 <a class="nav-link" href="{{ route('admin.extensions.manage', $extension->slug) }}">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>{{ \Illuminate\Support\Str::title(str_replace('-', ' ', $extension->name)) }}</span>
+                    <span>{{ \Illuminate\Support\Str::title($extension->namespace) }}</span>
                 </a>
             </li>
         @endforeach

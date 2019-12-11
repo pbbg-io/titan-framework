@@ -46,17 +46,23 @@ class TitanFrameworkServiceProvider extends ServiceProvider
         $extensions = resolve('extensions');
 
         foreach($extensions as $ext) {
-            $author = Str::studly($ext->author);
-            $name = Str::studly($ext->name);
 
-            $authorLower = Str::kebab($author);
-            $nameLower = Str::kebab($ext->name);
 
-            $serviceProvider = "\Extensions\\{$author}\\{$name}\\ServiceProvider";
-            $serviceProviderPath = base_path("extensions/{$authorLower}/{$nameLower}/ServiceProvider.php");
+            // Gotta be a better way of doing this
+            $namespace = \Str::title(str_replace(['-', '/'], [' ', '\\'], $ext->namespace));
+
+            $namespace = str_replace(' ', '', $namespace);
+
+            $serviceProvider = "\\Extensions\\{$namespace}\\ServiceProvider";
+            $serviceProviderPath = base_path("extensions/{$ext->namespace}/ServiceProvider.php");
+
+//            dd($serviceProvider, $serviceProviderPath);
+
+//            dd(file_exists($serviceProviderPath), $serviceProvider);
 
             if(file_exists($serviceProviderPath))
             {
+                include_once $serviceProviderPath;
                 $this->app->register($serviceProvider);
             }
             else

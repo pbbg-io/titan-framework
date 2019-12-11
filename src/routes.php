@@ -47,7 +47,10 @@ Route::group([
         Route::get('/extensions', 'ExtensionController@index')
             ->name('admin.extensions.index');
 
-        Route::get('/extensions/{slug}', 'ExtensionController@manage')
+        Route::get('/extensions/{slug}', 'ExtensionController@showMarketplacePage')
+            ->name('admin.extensions.show');
+
+        Route::get('/extensions/{slug}/manage', 'ExtensionController@manage')
             ->name('admin.extensions.manage');
 
         Route::get('/extensions/{slug}/install', 'ExtensionController@install')

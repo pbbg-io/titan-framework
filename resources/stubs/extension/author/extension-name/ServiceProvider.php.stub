@@ -1,0 +1,18 @@
+<?php
+namespace {{namespace}};
+
+class ServiceProvider extends \Illuminate\Support\ServiceProvider
+{
+
+    public function boot()
+    {
+        $this->loadViewsFrom(__DIR__ . '/resources/views', '{{view_namespace}}');
+        $this->loadRoutesFrom(__DIR__ . '/routes.php');
+    }
+
+    public function register()
+    {
+
+    }
+
+}

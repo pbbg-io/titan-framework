@@ -60,28 +60,25 @@ class ExtensionController extends Controller
             abort(404, 'No extension was found');
         }
 
-        $this->callExtensionMethod('AdminController', 'index', $ext->json);
 
+        $call = $this->callExtensionMethod('AdminController', 'index', $ext->json);
+
+        if($call !== false)
+            return $call;
 
         return view('titan::admin.extensions.manage', compact('extensionName', 'ext'));
     }
 
     private function callExtensionMethod($className, $method, $ext)
     {
-        $namespace = \Str::title(str_replace(['-', '/'], ['', '\\'], $ext['namespace']));
-        $class = "\\Extensions\\{$namespace}\\{$className}";
-        $file = base_path("extensions/{$ext['namespace']}/{$className}.php");
+        $class = $ext['namespace'] . '\\' . $className;
 
+        $extension = new $class;
 
-        if (file_exists($file)) {
-            include_once $file;
-
-            if (class_exists($class)) {
-                $extension = new $class;
-
-                if(method_exists($extension, $method))
-                    return $extension->$method();
-            }
+        if (method_exists($extension, $method)) {
+            return $extension->$method();
+        } else {
+            var_dump($extension);
         }
 
         return false;
@@ -99,6 +96,10 @@ class ExtensionController extends Controller
         foreach ($localExtensionFiles as $file) {
             $composer = json_decode(file_get_contents($file));
 
+            if (!$composer) {
+                continue;
+            }
+
             $nameEx = explode('/', $composer->name);
             $author = $nameEx[0];
             $packageName = $nameEx[1];
@@ -108,12 +109,12 @@ class ExtensionController extends Controller
                 'description' => $composer->description,
                 'version' => '1.0.0',
                 'authors' => $composer->authors,
-                'slug' => \Str::kebab(str_replace('\\', ' ', $composer->extra->titan->namespace)),
+                'slug' => \Str::kebab(str_replace(['\\', 'Extensions'], [' ', ''], $composer->extra->titan->namespace)),
                 'rating' => '4.0',
                 'ratings' => 20,
                 'installs' => 3237,
-                'local' =>  true,
-                'namespace' =>  $composer->extra->titan->namespace,
+                'local' => true,
+                'namespace' => $composer->extra->titan->namespace,
             ];
 
         }
@@ -142,8 +143,7 @@ class ExtensionController extends Controller
         $found = $this->loadLocalExtensions()->firstWhere('slug', $slug);
 
         // Try checking locally
-        if(!$found)
-        {
+        if (!$found) {
             $extensions = $this->loadPublicExtensions();
             $found = $extensions->firstWhere('slug', $slug);
         }
@@ -154,8 +154,7 @@ class ExtensionController extends Controller
 
     public function install($slug): RedirectResponse
     {
-        if(Extensions::whereSlug($slug)->exists())
-        {
+        if (Extensions::whereSlug($slug)->exists()) {
             flash("That extension is already installed")->error();
             return redirect()->back();
         }
@@ -178,8 +177,7 @@ class ExtensionController extends Controller
     {
         $extension = Extensions::where('slug', $slug)->first();
 
-        if(!$extension->exists())
-        {
+        if (!$extension->exists()) {
             flash("This extension hasn't been installed yet")->error();
 
             return redirect()->back();

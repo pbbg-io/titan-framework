@@ -5,6 +5,7 @@ namespace PbbgIo\TitanFramework;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use PbbgIo\TitanFramework\Commands\MakeExtension;
 use PbbgIo\TitanFramework\Commands\RefreshExtensionsCache;
 use PbbgIo\TitanFramework\Commands\InstallTitan;
 use PbbgIo\TitanFramework\Commands\PublishTitanResources;
@@ -33,6 +34,7 @@ class TitanFrameworkServiceProvider extends ServiceProvider
             UpdateTitan::class,
             RefreshExtensionsCache::class,
             SuperAdmin::class,
+            MakeExtension::class,
         ]);
 
         $this->publishes([
@@ -47,18 +49,12 @@ class TitanFrameworkServiceProvider extends ServiceProvider
 
         foreach($extensions as $ext) {
 
+            $realNameSpace = $ext->namespace;
+            $folderPath = \Str::kebab($ext->namespace);
+            $folderPath = str_replace(['\\-', '\\'], '/', $folderPath);
 
-            // Gotta be a better way of doing this
-            $namespace = \Str::title(str_replace(['-', '/'], [' ', '\\'], $ext->namespace));
-
-            $namespace = str_replace(' ', '', $namespace);
-
-            $serviceProvider = "\\Extensions\\{$namespace}\\ServiceProvider";
-            $serviceProviderPath = base_path("extensions/{$ext->namespace}/ServiceProvider.php");
-
-//            dd($serviceProvider, $serviceProviderPath);
-
-//            dd(file_exists($serviceProviderPath), $serviceProvider);
+            $serviceProvider = "{$realNameSpace}\\ServiceProvider";
+            $serviceProviderPath = base_path("{$folderPath}/ServiceProvider.php");
 
             if(file_exists($serviceProviderPath))
             {

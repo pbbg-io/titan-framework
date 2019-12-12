@@ -1,0 +1,4 @@
+<?php
+Route::get('/{{view_namespace}}', function() {
+    return 'hello world';
+})->name('{{view_namespace}}.index');

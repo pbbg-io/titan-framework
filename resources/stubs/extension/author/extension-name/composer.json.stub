@@ -1,0 +1,19 @@
+{
+    "name": "{{package_name}}",
+    "description": "{{package_description}}",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "{{package_author}}",
+            "email": "{{package_author_email}}"
+        }
+    ],
+    "require": {},
+    "extra": {
+        "titan": {
+            "name": "{{package_friendly_name}}",
+            "namespace": "{{package_namespace}}"
+        }
+    }
+}

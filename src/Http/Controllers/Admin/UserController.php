@@ -5,6 +5,7 @@ namespace PbbgIo\TitanFramework\Http\Controllers\Admin;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use PbbgIo\TitanFramework\Http\Requests\CreateUpdateUserRequest;
@@ -80,7 +81,7 @@ class UserController extends Controller
 
     }
 
-    public function datatable()
+    public function datatable(): JsonResponse
     {
         return datatables(User::select(["id", "name", "email", "email_verified_at", "last_move", "created_at"]))
             ->addColumn('action', function ($user) {

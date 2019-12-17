@@ -63,17 +63,22 @@
         </div>
 
         <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.users.index') }}">
-                <i class="fas fa-fw fa-users"></i>
-                <span>Users</span>
+        <li class="nav-item   @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/groups', 'admin/users'])) active @endif">
+            <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="@if(\Illuminate\Support\Str::contains(request()->path(), ['admin/groups', 'admin/users'])) true @else false @endif" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Users & Roles</span>
             </a>
-        </li>
-        <li class="nav-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/groups')) active @endif">
-            <a class="nav-link" href="{{ route('admin.groups.index') }}">
-                <i class="fas fa-fw fa-users-cog"></i>
-                <span>Groups</span>
-            </a>
+            <div id="collapsePages" class="collapse @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/groups', 'admin/users'])) show @endif" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Users</h6>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/users')) active @endif" href="{{ route('admin.users.index') }}"><i class="fas fa-user"></i> Users</a>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/users/create')) active @endif" href="{{ route('admin.users.create') }}"><i class="fas fa-plus-circle"></i> Add New</a>
+                    <h6 class="collapse-header">Groups</h6>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/groups')) active @endif" href="{{ route('admin.groups.index') }}"><i class="fas fa-users-cog"></i> Groups</a>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/groups/create')) active @endif" href="{{ route('admin.groups.create') }}"><i class="fas fa-plus-circle"></i> Add New</a>
+
+                </div>
+            </div>
         </li>
         <li class="nav-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/settings')) active @endif">
             <a class="nav-link" href="{{ route('admin.settings.index') }}">

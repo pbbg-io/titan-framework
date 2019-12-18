@@ -39,6 +39,14 @@
 
     <script type="text/javascript">
         (function() {
+            $(document).on("click", ".delete", function(e) {
+                if(confirm('Are you sure you want to delete this user?') === true){
+                    window.axios.delete($(this).attr('href'));
+                    location.reload();
+                }
+
+                e.preventDefault();
+            });
             $('#dataTable').DataTable({
                 "processing": true,
                 "serverSide": true,

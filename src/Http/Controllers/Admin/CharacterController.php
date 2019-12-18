@@ -144,17 +144,23 @@ class CharacterController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Character $character): void
     {
-        //
+        $character->stats()->delete();
+        $character->delete();
+        flash("Character has been deleted")->success();
     }
 
     public function datatable(): JsonResponse
     {
         return datatables(Character::select())
             ->addColumn('action', function ($character) {
-                $route = route('admin.characters.edit', $character);
-                return '<a href="' . $route . '" class="btn btn-xs btn-primary"><i class="fas fa-pen fa-sm text-white-50"></i> Edit</a>';
+                $routeEdit = route('admin.characters.edit', $character);
+                $routeDelete = route('admin.characters.destroy', $character);
+                $buttons = '';
+                $buttons .= '<a href="' . $routeEdit . '" class="btn btn-xs btn-primary mr-3"><i class="fas fa-pen fa-sm text-white-50"></i> Edit</a>';
+                $buttons .= '<a href="' . $routeDelete . '" class="btn btn-xs btn-danger delete"><i class="fas fa-times-circle fa-sm text-white-50"></i> Delete</a>';
+                return $buttons;
             })
             ->editColumn('last_move', function ($character) {
                 if (!$character->last_move) {

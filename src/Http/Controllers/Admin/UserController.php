@@ -98,8 +98,12 @@ class UserController extends Controller
     {
         return datatables(User::select(["id", "name", "email", "email_verified_at", "last_move", "created_at"]))
             ->addColumn('action', function ($user) {
-                $route = route('admin.users.edit', $user);
-                return '<a href="' . $route . '" class="btn btn-xs btn-primary"><i class="fas fa-pen fa-sm text-white-50"></i> Edit</a>';
+                $routeEdit = route('admin.users.edit', $user);
+                $routeDelete = route('admin.users.delete', $user);
+                $buttons = '';
+                $buttons .= '<a href="' . $routeEdit . '" class="btn btn-xs btn-primary mr-3"><i class="fas fa-pen fa-sm text-white-50"></i> Edit</a>';
+                $buttons .= '<a href="' . $routeDelete . '" class="btn btn-xs btn-danger delete"><i class="fas fa-times-circle fa-sm text-white-50"></i> Delete</a>';
+                return $buttons;
             })
             ->editColumn('email_verified_at', function ($user) {
                 if (!$user->email_verified_at) {

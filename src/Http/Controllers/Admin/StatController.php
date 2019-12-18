@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\View\View;
 use PbbgIo\TitanFramework\Character;
+use PbbgIo\TitanFramework\CharacterStat;
 use PbbgIo\TitanFramework\Http\Requests\CreateUpdateStatRequest;
 use PbbgIo\TitanFramework\Stat;
 
@@ -100,17 +101,25 @@ class StatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Stat $stat)
     {
-        //
+        CharacterStat::whereStatId($stat->id)->delete();
+        $stat->delete();
+        flash("Stat has been deleted")->success();
+
+        return redirect()->back();
     }
 
     public function datatable(): JsonResponse
     {
         return datatables(Stat::select())
             ->addColumn('action', function ($stat) {
-                $route = route('admin.stats.edit', $stat);
-                return '<a href="' . $route . '" class="btn btn-xs btn-primary"><i class="fas fa-pen fa-sm text-white-50"></i> Edit</a>';
+                $routeEdit = route('admin.stats.edit', $stat);
+                $routeDelete = route('admin.stats.destroy', $stat);
+                $buttons = '';
+                $buttons .= '<a href="' . $routeEdit . '" class="btn btn-xs btn-primary mr-3"><i class="fas fa-pen fa-sm text-white-50"></i> Edit</a>';
+                $buttons .= '<a href="' . $routeDelete . '" class="btn btn-xs btn-danger delete"><i class="fas fa-times-circle fa-sm text-white-50"></i> Delete</a>';
+                return $buttons;
             })->toJson();
     }
 }

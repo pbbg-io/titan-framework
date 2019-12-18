@@ -1,6 +1,6 @@
 @extends('titan::layouts.admin')
 @section('page')
-    <h1 class="h3 mb-4 text-gray-800">Current Users
+    <h1 class="h3 mb-4 text-gray-800">Current Characters
         <span class="float-right"><a href="{{ route('admin.characters.create') }}" class="btn btn-primary">Create new</a> </span></h1>
 
     <div class="card shadow mb-4">
@@ -37,6 +37,14 @@
 
     <script type="text/javascript">
         (function() {
+            $(document).on("click", ".delete", function(e) {
+                if(confirm('Are you sure you want to delete this character?') === true){
+                    window.axios.delete($(this).attr('href'));
+                    location.reload();
+                }
+
+                e.preventDefault();
+            });
             $('#dataTable').DataTable({
                 "processing": true,
                 "serverSide": true,

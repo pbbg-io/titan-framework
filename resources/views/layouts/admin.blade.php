@@ -44,17 +44,13 @@
             <div class="sidebar-brand-text mx-3">Titan <sup>{{ config('titan.version') }}</sup></div>
         </a>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
-
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
+        <li class="nav-item @if(request()->path() === 'admin') active @endif">
             <a class="nav-link" href="{{ route('admin.home') }}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
 
-        <!-- Divider -->
         <hr class="sidebar-divider">
 
         <!-- Heading -->
@@ -65,7 +61,7 @@
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item   @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/groups', 'admin/users'])) active @endif">
             <a class="nav-link" href="#" data-toggle="collapse" data-target="#usersAndRolesMenu" aria-expanded="@if(\Illuminate\Support\Str::contains(request()->path(), ['admin/groups', 'admin/users'])) true @else false @endif" aria-controls="usersAndRolesMenu">
-                <i class="fas fa-fw fa-folder"></i>
+                <i class="fas fa-fw fa-user-astronaut"></i>
                 <span>Users & Roles</span>
             </a>
             <div id="usersAndRolesMenu" class="collapse @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/groups', 'admin/users'])) show @endif" aria-labelledby="headingPages" data-parent="#accordionSidebar">
@@ -82,7 +78,7 @@
         </li>
         <li class="nav-item   @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/characters', 'admin/stats'])) active @endif">
             <a class="nav-link" href="#" data-toggle="collapse" data-target="#characterStatsMenu" aria-expanded="@if(\Illuminate\Support\Str::contains(request()->path(), ['admin/characters', 'admin/stats'])) true @else false @endif" aria-controls="characterStatsMenu">
-                <i class="fas fa-fw fa-folder"></i>
+                <i class="fas fa-fw fa-user-graduate"></i>
                 <span>Characters & Stats</span>
             </a>
             <div id="characterStatsMenu" class="collapse @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/characters', 'admin/stats'])) show @endif" aria-labelledby="headingPages" data-parent="#accordionSidebar">
@@ -128,7 +124,6 @@
             </a>
         </li>
 
-        <!-- Divider -->
         <hr class="sidebar-divider">
 
         <!-- Heading -->
@@ -145,13 +140,6 @@
             </li>
         @endforeach
         <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
-
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-
     </ul>
     <!-- End of Sidebar -->
 

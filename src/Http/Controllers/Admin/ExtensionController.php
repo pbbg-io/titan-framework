@@ -61,7 +61,7 @@ class ExtensionController extends Controller
         }
 
 
-        $call = $this->callExtensionMethod('AdminController', 'index', $ext->json);
+        $call = $this->callExtensionMethod('AdminController', 'index', $ext);
 
         if($call !== false)
             return $call;
@@ -185,7 +185,7 @@ class ExtensionController extends Controller
 
         $eJson = $this->getExtensionFromJSON($slug);
 
-        $call = $this->callExtensionMethod('InstallController', 'uninstall', $eJson);
+        $call = $this->callExtensionMethod('InstallController', 'uninstall', $extension);
 
         flash("{$eJson['name']} has been uninstalled")->success();
 

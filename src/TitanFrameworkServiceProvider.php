@@ -4,7 +4,6 @@ namespace PbbgIo\TitanFramework;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
 use PbbgIo\TitanFramework\Commands\MakeExtension;
 use PbbgIo\TitanFramework\Commands\RefreshExtensionsCache;
 use PbbgIo\TitanFramework\Commands\InstallTitan;
@@ -12,6 +11,7 @@ use PbbgIo\TitanFramework\Commands\PublishTitanResources;
 use PbbgIo\TitanFramework\Commands\SuperAdmin;
 use PbbgIo\TitanFramework\Commands\UpdateTitan;
 use PbbgIo\TitanFramework\Models\Settings;
+use PbbgIo\TitanFramework\Observers\StatObserver;
 
 class TitanFrameworkServiceProvider extends ServiceProvider
 {
@@ -47,7 +47,7 @@ class TitanFrameworkServiceProvider extends ServiceProvider
 
         $extensions = resolve('extensions');
 
-        foreach($extensions as $ext) {
+        foreach ($extensions as $ext) {
 
             $realNameSpace = $ext->namespace;
             $folderPath = \Str::kebab($ext->namespace);
@@ -56,18 +56,24 @@ class TitanFrameworkServiceProvider extends ServiceProvider
             $serviceProvider = "{$realNameSpace}\\ServiceProvider";
             $serviceProviderPath = base_path("{$folderPath}/ServiceProvider.php");
 
-            if(file_exists($serviceProviderPath))
-            {
+            if (file_exists($serviceProviderPath)) {
                 include_once $serviceProviderPath;
                 $this->app->register($serviceProvider);
-            }
-            else
+            } else {
                 Log::warning("Trying to load {$serviceProvider} {$serviceProviderPath} but failed");
+            }
         }
 
         \Gate::before(function ($user, $ability) {
             return $user->hasRole('Super Admin') ? true : null;
         });
+
+        \View::composer(['titan::game.*', 'titan::layouts.game'], function ($view) {
+            $character = \Auth::user()->character;
+            $view->with('character', $character);
+        });
+
+        Stat::observe(StatObserver::class);
     }
 
     /**
@@ -84,17 +90,18 @@ class TitanFrameworkServiceProvider extends ServiceProvider
 
             try {
                 $ext = Extensions::all();
-            } catch (\Exception $exception) {}
+            } catch (\Exception $exception) {
+            }
 
             return $ext;
         });
 
-        $this->app->singleton('menu', function() {
+        $this->app->singleton('menu', function () {
             $menu = Menu::with('items')->whereEnabled(true)->get();
             return $menu;
         });
 
-        $this->app->singleton('settings', function() {
+        $this->app->singleton('settings', function () {
             return Settings::all();
         });
 

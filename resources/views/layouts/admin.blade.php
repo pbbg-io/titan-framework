@@ -64,11 +64,11 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item   @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/groups', 'admin/users'])) active @endif">
-            <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="@if(\Illuminate\Support\Str::contains(request()->path(), ['admin/groups', 'admin/users'])) true @else false @endif" aria-controls="collapsePages">
+            <a class="nav-link" href="#" data-toggle="collapse" data-target="#usersAndRolesMenu" aria-expanded="@if(\Illuminate\Support\Str::contains(request()->path(), ['admin/groups', 'admin/users'])) true @else false @endif" aria-controls="usersAndRolesMenu">
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Users & Roles</span>
             </a>
-            <div id="collapsePages" class="collapse @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/groups', 'admin/users'])) show @endif" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div id="usersAndRolesMenu" class="collapse @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/groups', 'admin/users'])) show @endif" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Users</h6>
                     <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/users')) active @endif" href="{{ route('admin.users.index') }}"><i class="fas fa-user"></i> Users</a>
@@ -76,6 +76,23 @@
                     <h6 class="collapse-header">Groups</h6>
                     <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/groups')) active @endif" href="{{ route('admin.groups.index') }}"><i class="fas fa-users-cog"></i> Groups</a>
                     <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/groups/create')) active @endif" href="{{ route('admin.groups.create') }}"><i class="fas fa-plus-circle"></i> Add New</a>
+
+                </div>
+            </div>
+        </li>
+        <li class="nav-item   @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/characters', 'admin/stats'])) active @endif">
+            <a class="nav-link" href="#" data-toggle="collapse" data-target="#characterStatsMenu" aria-expanded="@if(\Illuminate\Support\Str::contains(request()->path(), ['admin/characters', 'admin/stats'])) true @else false @endif" aria-controls="characterStatsMenu">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Characters & Stats</span>
+            </a>
+            <div id="characterStatsMenu" class="collapse @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/characters', 'admin/stats'])) show @endif" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Characters</h6>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/characters')) active @endif" href="{{ route('admin.characters.index') }}"><i class="fa fa-chess-king"></i> Characters</a>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/characters/create')) active @endif" href="{{ route('admin.characters.create') }}"><i class="fas fa-plus-circle"></i> Add New</a>
+                    <h6 class="collapse-header">Stats</h6>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/stats')) active @endif" href="{{ route('admin.stats.index') }}"><i class="fas fa-heart"></i> Stats</a>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/stats/create')) active @endif" href="{{ route('admin.stats.create') }}"><i class="fas fa-plus-circle"></i> Add New</a>
 
                 </div>
             </div>

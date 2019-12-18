@@ -13,3 +13,5 @@ require('./datatables/dataTables.bootstrap4');
 require('jquery-ui');
 
 require('./nestedSortable');
+
+require('select2/dist/js/select2.min');

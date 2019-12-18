@@ -4,6 +4,7 @@ namespace PbbgIo\TitanFramework\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -25,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/characters';
 
     /**
      * Create a new controller instance.
@@ -40,5 +41,10 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         return view('titan::auth.login');
+    }
+
+    public function loggedOut(Request $request)
+    {
+        session()->forget('character_logged_in');
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use PbbgIo\TitanFramework\Character;
 use PbbgIo\TitanFramework\Http\Requests\CreateUpdateUserRequest;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -26,6 +27,18 @@ class UserController extends Controller
     public function create(): View
     {
         return view('titan::admin.users.create');
+    }
+
+    public function list() {
+        $list = User::select(['id', 'name', 'name as text'])
+            ->where('name', 'LIKE', '%'.request()->input('q').'%')
+            ->orWhere('email', 'LIKE', '%'.request()->input('q').'%')
+            ->orWhere('id', 'LIKE', '%'.request()->input('q').'%')
+            ->get();
+
+        return response()->json([
+            'results'   =>  $list,
+        ]);
     }
 
     public function store(CreateUpdateUserRequest $request): RedirectResponse

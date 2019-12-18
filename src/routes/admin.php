@@ -40,6 +40,9 @@ Route::group([
         'destroy' => 'admin.cronjobs.destroy',
     ]);
 
+    Route::get('users/list', 'UserController@list')
+        ->name('admin.users.list');
+
     Route::resource('users', 'UserController')->names([
         'index' => 'admin.users.index',
         'create' => 'admin.users.create',
@@ -49,6 +52,34 @@ Route::group([
         'delete' => 'admin.users.delete',
         'destroy' => 'admin.users.destroy',
     ]);
+
+    Route::get('/characters/datatable', 'CharacterController@datatable')
+        ->name('admin.characters.datatable');
+
+    Route::resource('characters', 'CharacterController')
+        ->names([
+            'index' => 'admin.characters.index',
+            'create' => 'admin.characters.create',
+            'store' => 'admin.characters.store',
+            'update' => 'admin.characters.update',
+            'edit' => 'admin.characters.edit',
+            'delete' => 'admin.characters.delete',
+            'destroy' => 'admin.characters.destroy',
+        ]);
+
+    Route::get('/stats/datatable', 'StatController@datatable')
+        ->name('admin.stats.datatable');
+
+    Route::resource('stats', 'StatController')
+        ->names([
+            'index' => 'admin.stats.index',
+            'create' => 'admin.stats.create',
+            'store' => 'admin.stats.store',
+            'update' => 'admin.stats.update',
+            'edit' => 'admin.stats.edit',
+            'delete' => 'admin.stats.delete',
+            'destroy' => 'admin.stats.destroy',
+        ]);
 
     Route::resource('groups', 'GroupController')->names([
         'index' => 'admin.groups.index',

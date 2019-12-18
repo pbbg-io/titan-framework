@@ -107,7 +107,7 @@ class StatController extends Controller
         $stat->delete();
         flash("Stat has been deleted")->success();
 
-        return redirect()->back();
+        return response()->json(['ok']);
     }
 
     public function datatable(): JsonResponse

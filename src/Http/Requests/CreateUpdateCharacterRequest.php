@@ -23,10 +23,16 @@ class CreateUpdateCharacterRequest extends FormRequest
      */
     public function rules()
     {
+
         $char = request()->route()->parameter('character');
-        return [
-            'display_name'  =>  'required|unique:characters,display_name,' . $char->id,
-            'area_id'   =>  'required|exists:areas,id'
-        ];
+
+        $rules = [];
+        $rules['display_name'] = 'required|max:255|min:3';
+        $rules['area_id'] = 'required|exists:areas,id';
+
+        if($char)
+            $rules['display_name'] = 'required|max:255|min:3|unique:characters,display_name,' . $char->id;
+
+        return $rules;
     }
 }

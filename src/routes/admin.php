@@ -26,7 +26,6 @@ Route::group([
     Route::get('/users/datatable', 'UserController@datatable')
         ->name('admin.users.datatable');
 
-
     Route::post('/cronjobs/run', 'CronjobController@run')
         ->name('admin.cronjobs.run');
 
@@ -65,6 +64,20 @@ Route::group([
             'edit' => 'admin.characters.edit',
             'delete' => 'admin.characters.delete',
             'destroy' => 'admin.characters.destroy',
+        ]);
+
+    Route::get('/areas/datatable', 'AreaController@datatable')
+        ->name('admin.areas.datatable');
+
+    Route::resource('areas', 'AreaController')
+        ->names([
+            'index' => 'admin.areas.index',
+            'create' => 'admin.areas.create',
+            'store' => 'admin.areas.store',
+            'update' => 'admin.areas.update',
+            'edit' => 'admin.areas.edit',
+            'delete' => 'admin.areas.delete',
+            'destroy' => 'admin.areas.destroy',
         ]);
 
     Route::get('/stats/datatable', 'StatController@datatable')

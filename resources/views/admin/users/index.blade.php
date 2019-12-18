@@ -1,7 +1,8 @@
 @extends('titan::layouts.admin')
 @section('page')
     <h1 class="h3 mb-4 text-gray-800">Current Users
-        <span class="float-right"><a href="{{ route('admin.users.create') }}" class="btn btn-primary">Create new</a> </span></h1>
+        <span class="float-right"><a href="{{ route('admin.users.create') }}"
+                                     class="btn btn-primary">Create new</a> </span></h1>
 
     <div class="card shadow mb-4">
         <div class="card-body">
@@ -38,11 +39,17 @@
 @section('scripts')
 
     <script type="text/javascript">
-        (function() {
-            $(document).on("click", ".delete", function(e) {
-                if(confirm('Are you sure you want to delete this user?') === true){
-                    window.axios.delete($(this).attr('href'));
-                    location.reload();
+        (function () {
+            $(document).on("click", ".delete", function (e) {
+                if (confirm('Are you sure you want to delete this user?') === true) {
+                    window.axios.delete($(this).attr('href'))
+                        .then(res => {
+
+                            location.reload();
+                        })
+                        .catch(err => {
+                            alert(err.response.data.message);
+                        });
                 }
 
                 e.preventDefault();

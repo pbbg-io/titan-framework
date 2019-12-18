@@ -41,8 +41,13 @@
         (function() {
             $(document).on("click", ".delete", function(e) {
                 if(confirm('Are you sure you want to delete this stat?') === true){
-                    window.axios.delete($(this).attr('href'));
-                    location.reload();
+                    window.axios.delete($(this).attr('href'))
+                        .then(() => {
+                            location.reload();
+                        })
+                        .catch(err => {
+                            alert(err.response.data.message);
+                        });
                 }
 
                 e.preventDefault();

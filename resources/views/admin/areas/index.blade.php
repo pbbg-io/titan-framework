@@ -1,7 +1,7 @@
 @extends('titan::layouts.admin')
 @section('page')
-    <h1 class="h3 mb-4 text-gray-800">Current Characters
-        <span class="float-right"><a href="{{ route('admin.characters.create') }}"
+    <h1 class="h3 mb-4 text-gray-800">Current Areas
+        <span class="float-right"><a href="{{ route('admin.areas.create') }}"
                                      class="btn btn-primary">Create new</a> </span></h1>
 
     <div class="card shadow mb-4">
@@ -10,18 +10,16 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
-                        <th>Display Name</th>
-                        <th>Last Move</th>
-                        <th>Area</th>
+                        <th>Id</th>
+                        <th>Name</th>
                         <th>Created At</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
-                        <th>Display Name</th>
-                        <th>Last Move</th>
-                        <th>Area</th>
+                        <th>Id</th>
+                        <th>Name</th>
                         <th>Created At</th>
                         <th>Action</th>
                     </tr>
@@ -39,7 +37,7 @@
     <script type="text/javascript">
         (function () {
             $(document).on("click", ".delete", function (e) {
-                if (confirm('Are you sure you want to delete this character?') === true) {
+                if (confirm('Are you sure you want to delete this area?') === true) {
                     window.axios.delete($(this).attr('href'))
                         .then(() => {
                             location.reload();
@@ -54,11 +52,10 @@
             $('#dataTable').DataTable({
                 "processing": true,
                 "serverSide": true,
-                "ajax": '{{ route('admin.characters.datatable') }}',
+                "ajax": '{{ route('admin.areas.datatable') }}',
                 columns: [
-                    {data: 'display_name', name: 'display_name'},
-                    {data: 'last_move', name: 'last_move'},
-                    {data: 'current_area', name: 'current_area'},
+                    {data: 'id', name: 'id'},
+                    {data: 'name', name: 'name'},
                     {data: 'created_at', name: 'created_at'},
                     {data: 'action', name: 'action'}
                 ]

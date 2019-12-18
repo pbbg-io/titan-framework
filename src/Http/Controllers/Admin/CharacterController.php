@@ -144,11 +144,13 @@ class CharacterController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Character $character): void
+    public function destroy(Character $character)
     {
         $character->stats()->delete();
         $character->delete();
         flash("Character has been deleted")->success();
+
+        return response()->json(['ok']);
     }
 
     public function datatable(): JsonResponse

@@ -97,6 +97,12 @@
                 </div>
             </div>
         </li>
+        <li class="nav-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/areas')) active @endif">
+            <a class="nav-link" href="{{ route('admin.areas.index') }}">
+                <i class="fas fa-fw fa-globe"></i>
+                <span>Areas</span>
+            </a>
+        </li>
         <li class="nav-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/settings')) active @endif">
             <a class="nav-link" href="{{ route('admin.settings.index') }}">
                 <i class="fas fa-fw fa-cog"></i>

@@ -50,5 +50,7 @@ class CronjobController extends Controller
 
     public function destroy(Cronjobs $cronjob): void {
         $cronjob->delete();
+        flash("Cronjob deleted")->success();
+        return response()->json(['ok']);
     }
 }

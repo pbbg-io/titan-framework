@@ -48,7 +48,7 @@ class CronjobController extends Controller
         return redirect()->route('admin.cronjobs.index');
     }
 
-    public function destroy(Cronjobs $cronjob): void {
+    public function destroy(Cronjobs $cronjob) {
         $cronjob->delete();
         flash("Cronjob deleted")->success();
         return response()->json(['ok']);

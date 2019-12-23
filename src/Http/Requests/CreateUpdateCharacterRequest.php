@@ -13,7 +13,7 @@ class CreateUpdateCharacterRequest extends FormRequest
      */
     public function authorize()
     {
-        return \Auth::user()->can('characters');
+        return \Auth::user()->can('users');
     }
 
     /**

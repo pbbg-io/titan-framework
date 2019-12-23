@@ -161,6 +161,11 @@ class ExtensionController extends Controller
 
         $eJson = $this->getExtensionFromJSON($slug);
 
+        $provider = "\\{$eJson['namespace']}\\ServiceProvider";
+
+        // Register the provider so you can publish assets and such
+        app()->register($provider);
+
         $call = $this->callExtensionMethod('InstallController', 'install', $eJson);
 
         $extension = new Extensions();

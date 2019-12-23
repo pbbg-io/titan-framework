@@ -197,6 +197,10 @@ class InstallTitan extends Command
         $this->setEnvironmentValue("APP_NAME", $this->config['game.name']);
 
         \Artisan::call('migrate:fresh');
+        
+        \Artisan::call('db:seed --class=AreaSeeder');
+        \Artisan::call('db:seed --class=MenuSeeder');
+        \Artisan::call('db:seed --class=StatSeeder');
 
         $user = new User();
         $user->name = $this->config['admin.username'];

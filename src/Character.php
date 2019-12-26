@@ -38,6 +38,10 @@ class Character extends Model
         return $this->hasOne(Area::class, 'id', 'area_id');
     }
 
+    public function items() {
+        return $this->hasMany(CharacterItem::class, 'character_id', 'id');
+    }
+
     /**
      * Get custom attribute `current_area` which returns the name of the current area
      *

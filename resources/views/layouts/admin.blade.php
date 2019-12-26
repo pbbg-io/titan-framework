@@ -11,12 +11,6 @@
 
     <title>{{ config('app.name', 'Titan') }}</title>
 
-    <!-- Scripts -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
-    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
-    <script src="{{ mix('js/admin.js') }}"></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -67,7 +61,7 @@
             <div id="usersAndRolesMenu" class="collapse @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/groups', 'admin/users'])) show @endif" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Users</h6>
-                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/users')) active @endif" href="{{ route('admin.users.index') }}"><i class="fas fa-user"></i> Users</a>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/users')) active @endif" href="{{ route('admin.users.index') }}"><i class="fas fa-user-astronaut"></i> Users</a>
                     <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/users/create')) active @endif" href="{{ route('admin.users.create') }}"><i class="fas fa-plus-circle"></i> Add New</a>
                     <h6 class="collapse-header">Groups</h6>
                     <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/groups')) active @endif" href="{{ route('admin.groups.index') }}"><i class="fas fa-users-cog"></i> Groups</a>
@@ -84,12 +78,28 @@
             <div id="characterStatsMenu" class="collapse @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/characters', 'admin/stats'])) show @endif" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Characters</h6>
-                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/characters')) active @endif" href="{{ route('admin.characters.index') }}"><i class="fa fa-chess-king"></i> Characters</a>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/characters')) active @endif" href="{{ route('admin.characters.index') }}"><i class="fa fa-user-graduate"></i> Characters</a>
                     <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/characters/create')) active @endif" href="{{ route('admin.characters.create') }}"><i class="fas fa-plus-circle"></i> Add New</a>
                     <h6 class="collapse-header">Stats</h6>
                     <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/stats')) active @endif" href="{{ route('admin.stats.index') }}"><i class="fas fa-heart"></i> Stats</a>
                     <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/stats/create')) active @endif" href="{{ route('admin.stats.create') }}"><i class="fas fa-plus-circle"></i> Add New</a>
 
+                </div>
+            </div>
+        </li>
+        <li class="nav-item   @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/items', 'admin/item-categories'])) active @endif">
+            <a class="nav-link" href="#" data-toggle="collapse" data-target="#itemsMenu" aria-expanded="@if(\Illuminate\Support\Str::contains(request()->path(), ['admin/items', 'admin/item-categories'])) true @else false @endif" aria-controls="itemsMenu">
+                <i class="fas fa-fw fa-gifts"></i>
+                <span>Items</span>
+            </a>
+            <div id="itemsMenu" class="collapse @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/items', 'admin/item-categories'])) show @endif" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Item Categories</h6>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/item-categories')) active @endif" href="{{ route('admin.item-categories.index') }}"><i class="fas fa-heart"></i> Categories</a>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/item-categories/create')) active @endif" href="{{ route('admin.item-categories.create') }}"><i class="fas fa-plus-circle"></i> Add New</a>
+                    <h6 class="collapse-header">Items</h6>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/items')) active @endif" href="{{ route('admin.items.index') }}"><i class="fa fa-gifts"></i> Items</a>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/items/create')) active @endif" href="{{ route('admin.items.create') }}"><i class="fas fa-plus-circle"></i> Add New</a>
                 </div>
             </div>
         </li>
@@ -283,6 +293,13 @@
     </div>
 </div>
 
-@yield('scripts')
+
+<!-- Scripts -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+<script src="{{ mix('js/admin.js') }}"></script>
+
+@stack('scripts')
 </body>
 </html>

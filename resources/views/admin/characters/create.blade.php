@@ -36,7 +36,7 @@
     {!! \Form::close() !!}
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script type="text/javascript">
         $('.user-list').select2({
             ajax: {
@@ -52,4 +52,4 @@
             theme: 'bootstrap4',
         });
     </script>
-@endsection
+@endpush

@@ -35,7 +35,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
 
     <script type="text/javascript">
         (function() {
@@ -67,4 +67,4 @@
             });
         })();
     </script>
-@endsection
+@endpush

@@ -38,7 +38,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script>
         (() => {
             $(".delete").on('click', function(e) {
@@ -51,4 +51,4 @@
             })
         })()
     </script>
-@endsection
+@endpush

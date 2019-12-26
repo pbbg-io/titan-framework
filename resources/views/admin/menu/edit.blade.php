@@ -43,7 +43,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script type="text/javascript">
 
         let hasChanges = false,
@@ -168,4 +168,4 @@
 
         })
     </script>
-@endsection
+@endpush

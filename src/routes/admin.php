@@ -94,6 +94,34 @@ Route::group([
             'destroy' => 'admin.stats.destroy',
         ]);
 
+    Route::get('/items/datatable', 'ItemController@datatable')
+        ->name('admin.items.datatable');
+
+    Route::resource('items', 'ItemController')
+        ->names([
+            'index' => 'admin.items.index',
+            'create' => 'admin.items.create',
+            'store' => 'admin.items.store',
+            'update' => 'admin.items.update',
+            'edit' => 'admin.items.edit',
+            'delete' => 'admin.items.delete',
+            'destroy' => 'admin.items.destroy',
+        ]);
+
+    Route::get('/item-categories/datatable', 'ItemCategoryController@datatable')
+        ->name('admin.item-categories.datatable');
+
+    Route::resource('item-categories', 'ItemCategoryController')
+        ->names([
+            'index' => 'admin.item-categories.index',
+            'create' => 'admin.item-categories.create',
+            'store' => 'admin.item-categories.store',
+            'update' => 'admin.item-categories.update',
+            'edit' => 'admin.item-categories.edit',
+            'delete' => 'admin.item-categories.delete',
+            'destroy' => 'admin.item-categories.destroy',
+        ]);
+
     Route::resource('groups', 'GroupController')->names([
         'index' => 'admin.groups.index',
         'create' => 'admin.groups.create',

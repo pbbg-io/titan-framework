@@ -95,9 +95,10 @@ class MakeExtension extends Command
         $email = $this->answers['email'];
 
         $name = $this->answers['name'];
+        $kebab = \Str::kebab($name);
         $alphaName = strtolower($name);
-        $alphaName = preg_replace("/[^A-Za-z\-]/", '', $alphaName);
-        $this->names['alpha_name'] = $alphaName;
+//        $alphaName = preg_replace("/[^A-Za-z\-]/", '', $alphaName);
+        $this->names['alpha_name'] = $kebab;
 
         $author = $this->answers['author'];
         $alphaAuthor = strtolower($author);

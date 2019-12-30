@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use PbbgIo\TitanFramework\Http\Requests\GroupRequest;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class GroupController extends Controller
@@ -19,25 +20,32 @@ class GroupController extends Controller
 
     public function create(): View
     {
-        return view('titan::admin.groups.create');
+        $permissions = Permission::all();
+        return view('titan::admin.groups.create', compact('permissions'));
     }
 
     public function store(GroupRequest $request): RedirectResponse
     {
         $role = new Role();
-        $role->fill($request->all());
+        $role->fill($request->only('name', 'prefix', 'suffix'));
         $role->save();
 
-        return redirect()->route('admin.groups.index');
+        $role->syncPermissions($request->input('permissions'));
+
+        return redirect()->route('admin.groups.edit', $role);
     }
 
     public function edit(Role $group) {
-        return view('titan::admin.groups.edit', compact('group'));
+        $permissions = Permission::all();
+        return view('titan::admin.groups.edit', compact('group', 'permissions'));
     }
 
     public function update(GroupRequest $request, Role $group): RedirectResponse {
-        $group->fill($request->all());
+        $group->fill($request->only('name', 'prefix', 'suffix'));
         $group->save();
+
+        $groups = collect($request->input('permissions'));
+        $group->syncPermissions($groups->keys());
 
         flash("{$group->name} has been updated")->success();
 

@@ -3,6 +3,7 @@
 namespace PbbgIo\TitanFramework\Http\Controllers\Admin;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -38,7 +39,7 @@ class GroupController extends Controller
         return redirect()->route('admin.groups.edit', $group);
     }
 
-    public function edit(Role $group) {
+    public function edit(Role $group): View {
         $permissions = Permission::all();
         return view('titan::admin.groups.edit', compact('group', 'permissions'));
     }
@@ -55,7 +56,7 @@ class GroupController extends Controller
         return redirect()->route('admin.groups.edit', compact('group'));
     }
 
-    public function destroy(Role $group) {
+    public function destroy(Role $group): JsonResponse {
         $group->delete();
 
         flash('Group deleted')->success();

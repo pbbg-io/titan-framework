@@ -26,13 +26,16 @@ class GroupController extends Controller
 
     public function store(GroupRequest $request): RedirectResponse
     {
-        $role = new Role();
-        $role->fill($request->only('name', 'prefix', 'suffix'));
-        $role->save();
+        $group = new Role();
+        $group->fill($request->only('name', 'prefix', 'suffix'));
+        $group->save();
 
-        $role->syncPermissions($request->input('permissions'));
+        $permissions = collect($request->input('permissions'));
+        $group->syncPermissions($permissions->keys());
 
-        return redirect()->route('admin.groups.edit', $role);
+        flash("Group has been created")->success();
+
+        return redirect()->route('admin.groups.edit', $group);
     }
 
     public function edit(Role $group) {
@@ -44,19 +47,19 @@ class GroupController extends Controller
         $group->fill($request->only('name', 'prefix', 'suffix'));
         $group->save();
 
-        $groups = collect($request->input('permissions'));
-        $group->syncPermissions($groups->keys());
+        $permissions = collect($request->input('permissions'));
+        $group->syncPermissions($permissions->keys());
 
         flash("{$group->name} has been updated")->success();
 
         return redirect()->route('admin.groups.edit', compact('group'));
     }
 
-    public function destroy(Role $role) {
-        $role->delete();
+    public function destroy(Role $group) {
+        $group->delete();
 
-        flash('Role deleted');
+        flash('Group deleted')->success();
 
-        return redirect()->route('admin.groups.index');
+        return response()->json(['ok']);
     }
 }

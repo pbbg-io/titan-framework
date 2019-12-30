@@ -49,8 +49,10 @@
         (() => {
             $(".delete").on('click', function(e) {
                 if(confirm('Are you sure you want to delete this?') === true){
-                    window.axios.delete($(this).attr('href'));
-                    location.reload();
+                    window.axios.delete($(this).attr('href'))
+                    .then(res => {
+                        location.reload();
+                    });
                 }
 
                 e.preventDefault();

@@ -4,9 +4,10 @@
         Manage {{ $permission->name }}
         <label class="switch ">
             <input type="checkbox" class="success" value="1" name="permissions[{{ $permission->id }}]"
-                   @if((isset($group) && $group->hasPermissionTo($permission->name)) || old('permissions_' . $permission->id)) checked @endif
+                   @if((isset($group) && $group->hasPermissionTo($permission->name)) || old('permissions.' . $permission->id)) checked @endif
             >
             <span class="slider round"></span>
         </label>
     </li>
 @endforeach
+@dump(old())

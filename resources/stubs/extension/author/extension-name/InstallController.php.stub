@@ -2,5 +2,11 @@
 namespace {{namespace}};
 
 class InstallController {
-    public function index() {}
+    public function install(): void {
+        //
+    }
+
+    public function uninstall(): void {
+        //
+    }
 }

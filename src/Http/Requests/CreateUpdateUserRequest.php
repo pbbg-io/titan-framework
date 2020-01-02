@@ -1,6 +1,6 @@
 <?php
 
-namespace PbbgIo\TitanFramework\Http\Requests;
+namespace PbbgIo\Titan\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;

@@ -1,6 +1,6 @@
 <?php
 
-namespace PbbgIo\TitanFramework\Http\Controllers\Admin;
+namespace PbbgIo\Titan\Http\Controllers\Admin;
 
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
@@ -8,10 +8,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\View\View;
-use PbbgIo\TitanFramework\Area;
-use PbbgIo\TitanFramework\Character;
-use PbbgIo\TitanFramework\Http\Requests\CreateUpdateCharacterRequest;
-use PbbgIo\TitanFramework\Stat;
+use PbbgIo\Titan\Area;
+use PbbgIo\Titan\Character;
+use PbbgIo\Titan\Http\Requests\CreateUpdateCharacterRequest;
+use PbbgIo\Titan\Stat;
 
 class CharacterController extends Controller
 {

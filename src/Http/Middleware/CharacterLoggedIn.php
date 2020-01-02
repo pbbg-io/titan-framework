@@ -1,6 +1,6 @@
 <?php
 
-namespace PbbgIo\TitanFramework\Http\Middleware;
+namespace PbbgIo\Titan\Http\Middleware;
 
 use Carbon\Carbon;
 use Closure;

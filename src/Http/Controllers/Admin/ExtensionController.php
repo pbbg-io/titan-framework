@@ -1,6 +1,6 @@
 <?php
 
-namespace PbbgIo\TitanFramework\Http\Controllers\Admin;
+namespace PbbgIo\Titan\Http\Controllers\Admin;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -9,7 +9,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
-use PbbgIo\TitanFramework\Extensions;
+use PbbgIo\Titan\Extensions;
 
 class ExtensionController extends Controller
 {

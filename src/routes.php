@@ -1,6 +1,6 @@
 <?php
 Route::group([
-    'namespace' => 'PbbgIo\TitanFramework\Http\Controllers',
+    'namespace' => 'PbbgIo\Titan\Http\Controllers',
     'middleware' => [
         'web'
     ]

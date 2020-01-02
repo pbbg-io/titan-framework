@@ -1,6 +1,6 @@
 <?php
 
-namespace PbbgIo\TitanFramework\Http\Controllers\Admin;
+namespace PbbgIo\Titan\Http\Controllers\Admin;
 
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
@@ -8,19 +8,19 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\View\View;
-use PbbgIo\TitanFramework\Character;
-use PbbgIo\TitanFramework\CharacterItem;
-use PbbgIo\TitanFramework\CharacterStat;
-use PbbgIo\TitanFramework\Http\Requests\CreateUpdateItemRequest;
-use PbbgIo\TitanFramework\Http\Requests\CreateUpdateStatRequest;
-use PbbgIo\TitanFramework\Item;
-use PbbgIo\TitanFramework\ItemCategory;
-use PbbgIo\TitanFramework\ItemStat;
-use PbbgIo\TitanFramework\Stat;
+use PbbgIo\Titan\Character;
+use PbbgIo\Titan\CharacterItem;
+use PbbgIo\Titan\CharacterStat;
+use PbbgIo\Titan\Http\Requests\CreateUpdateItemRequest;
+use PbbgIo\Titan\Http\Requests\CreateUpdateStatRequest;
+use PbbgIo\Titan\Item;
+use PbbgIo\Titan\ItemCategory;
+use PbbgIo\Titan\ItemStat;
+use PbbgIo\Titan\Stat;
 
 /**
  * Class ItemController
- * @package PbbgIo\TitanFramework\Http\Controllers\Admin
+ * @package PbbgIo\Titan\Http\Controllers\Admin
  */
 class ItemController extends Controller
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace PbbgIo\TitanFramework\Http\Controllers\Admin;
+namespace PbbgIo\Titan\Http\Controllers\Admin;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use PbbgIo\TitanFramework\Http\Requests\GroupRequest;
+use PbbgIo\Titan\Http\Requests\GroupRequest;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 

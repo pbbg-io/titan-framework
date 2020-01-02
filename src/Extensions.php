@@ -1,6 +1,6 @@
 <?php
 
-namespace PbbgIo\TitanFramework;
+namespace PbbgIo\Titan;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Cviebrock\EloquentSluggable\SluggableScopeHelpers;

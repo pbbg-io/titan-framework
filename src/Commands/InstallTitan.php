@@ -1,13 +1,13 @@
 <?php
 
-namespace PbbgIo\TitanFramework\Commands;
+namespace PbbgIo\Titan\Commands;
 
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
-use PbbgIo\TitanFramework\Cronjobs;
-use PbbgIo\TitanFramework\Models\Settings;
+use PbbgIo\Titan\Cronjobs;
+use PbbgIo\Titan\Models\Settings;
 use Spatie\Permission\Models\Role;
 
 class InstallTitan extends Command

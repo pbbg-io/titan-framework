@@ -1,12 +1,12 @@
 <?php
 
-namespace PbbgIo\TitanFramework\Http\Controllers\Admin;
+namespace PbbgIo\Titan\Http\Controllers\Admin;
 
 use App\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use PbbgIo\TitanFramework\Models\Settings;
+use PbbgIo\Titan\Models\Settings;
 
 class SearchController extends Controller
 {

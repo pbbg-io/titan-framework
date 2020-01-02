@@ -1,10 +1,10 @@
 <?php
 
-namespace PbbgIo\TitanFramework\Observers;
+namespace PbbgIo\Titan\Observers;
 
-use PbbgIo\TitanFramework\Character;
-use PbbgIo\TitanFramework\CharacterStat;
-use PbbgIo\TitanFramework\Stat;
+use PbbgIo\Titan\Character;
+use PbbgIo\Titan\CharacterStat;
+use PbbgIo\Titan\Stat;
 
 class StatObserver
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace PbbgIo\TitanFramework\Models;
+namespace PbbgIo\Titan\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

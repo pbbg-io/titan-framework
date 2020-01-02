@@ -1,15 +1,15 @@
 <?php
 
-namespace PbbgIo\TitanFramework\Http\Controllers\Admin;
+namespace PbbgIo\Titan\Http\Controllers\Admin;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\View\View;
-use PbbgIo\TitanFramework\Cronjobs;
-use PbbgIo\TitanFramework\Http\Requests\CronCreateRequest;
-use PbbgIo\TitanFramework\Http\Requests\CronRunRequest;
+use PbbgIo\Titan\Cronjobs;
+use PbbgIo\Titan\Http\Requests\CronCreateRequest;
+use PbbgIo\Titan\Http\Requests\CronRunRequest;
 
 class CronjobController extends Controller
 {

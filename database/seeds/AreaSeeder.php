@@ -19,7 +19,7 @@ class AreaSeeder extends Seeder
 
         foreach($areas as $area)
         {
-            $a = new \PbbgIo\TitanFramework\Area();
+            $a = new \PbbgIo\Titan\Area();
             $a->name = $area;
             $a->save();
         }

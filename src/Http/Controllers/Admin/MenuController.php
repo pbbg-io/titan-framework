@@ -1,16 +1,16 @@
 <?php
 
-namespace PbbgIo\TitanFramework\Http\Controllers\Admin;
+namespace PbbgIo\Titan\Http\Controllers\Admin;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\View\View;
-use PbbgIo\TitanFramework\Http\Requests\CreateUpdateMenuRequest;
-use PbbgIo\TitanFramework\Http\Requests\MenuItemCreateRequest;
-use PbbgIo\TitanFramework\Menu;
-use PbbgIo\TitanFramework\MenuItem;
+use PbbgIo\Titan\Http\Requests\CreateUpdateMenuRequest;
+use PbbgIo\Titan\Http\Requests\MenuItemCreateRequest;
+use PbbgIo\Titan\Menu;
+use PbbgIo\Titan\MenuItem;
 
 class MenuController extends Controller
 {

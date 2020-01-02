@@ -1,17 +1,17 @@
 <?php
 
-namespace PbbgIo\TitanFramework;
+namespace PbbgIo\Titan;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
-use PbbgIo\TitanFramework\Commands\MakeExtension;
-use PbbgIo\TitanFramework\Commands\RefreshExtensionsCache;
-use PbbgIo\TitanFramework\Commands\InstallTitan;
-use PbbgIo\TitanFramework\Commands\PublishTitanResources;
-use PbbgIo\TitanFramework\Commands\SuperAdmin;
-use PbbgIo\TitanFramework\Commands\UpdateTitan;
-use PbbgIo\TitanFramework\Models\Settings;
-use PbbgIo\TitanFramework\Observers\StatObserver;
+use PbbgIo\Titan\Commands\MakeExtension;
+use PbbgIo\Titan\Commands\RefreshExtensionsCache;
+use PbbgIo\Titan\Commands\InstallTitan;
+use PbbgIo\Titan\Commands\PublishTitanResources;
+use PbbgIo\Titan\Commands\SuperAdmin;
+use PbbgIo\Titan\Commands\UpdateTitan;
+use PbbgIo\Titan\Models\Settings;
+use PbbgIo\Titan\Observers\StatObserver;
 
 class TitanFrameworkServiceProvider extends ServiceProvider
 {

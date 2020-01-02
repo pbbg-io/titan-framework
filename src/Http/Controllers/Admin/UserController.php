@@ -1,6 +1,6 @@
 <?php
 
-namespace PbbgIo\TitanFramework\Http\Controllers\Admin;
+namespace PbbgIo\Titan\Http\Controllers\Admin;
 
 use App\User;
 use Carbon\Carbon;
@@ -8,8 +8,8 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use PbbgIo\TitanFramework\Character;
-use PbbgIo\TitanFramework\Http\Requests\CreateUpdateUserRequest;
+use PbbgIo\Titan\Character;
+use PbbgIo\Titan\Http\Requests\CreateUpdateUserRequest;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class UserController extends Controller

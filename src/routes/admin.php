@@ -164,4 +164,7 @@ Route::group([
     Route::delete('menu/items', 'MenuController@deleteItem')
         ->name('admin.menu.item.delete');
 
+    Route::get('logs', 'LogController@index')
+        ->name('admin.logs.index');
+
 });

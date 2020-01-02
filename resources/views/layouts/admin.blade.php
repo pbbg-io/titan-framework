@@ -153,10 +153,16 @@
                 <span>Cronjobs</span>
             </a>
         </li>
-        <li class="nav-item @if(request()->path() === 'admin/menu') active @endif">
+        <li class="nav-item @if(request()->path() === 'admin/menus') active @endif">
             <a class="nav-link" href="{{ route('admin.menu.index') }}">
                 <i class="fas fa-fw fa-bars"></i>
                 <span>Menus</span>
+            </a>
+        </li>
+        <li class="nav-item @if(request()->path() === 'admin/logs') active @endif">
+            <a class="nav-link" href="{{ route('admin.logs.index') }}">
+                <i class="fas fa-fw fas fa-file-alt"></i>
+                <span>Logs</span>
             </a>
         </li>
         @if(modules('vendor')->enabled()->count() > 0)

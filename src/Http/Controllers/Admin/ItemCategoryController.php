@@ -1,6 +1,6 @@
 <?php
 
-namespace PbbgIo\TitanFramework\Http\Controllers\Admin;
+namespace PbbgIo\Titan\Http\Controllers\Admin;
 
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\View\View;
-use PbbgIo\TitanFramework\CharacterItem;
-use PbbgIo\TitanFramework\Http\Requests\CreateUpdateItemCategoryRequest;
-use PbbgIo\TitanFramework\Item;
-use PbbgIo\TitanFramework\ItemCategory;
+use PbbgIo\Titan\CharacterItem;
+use PbbgIo\Titan\Http\Requests\CreateUpdateItemCategoryRequest;
+use PbbgIo\Titan\Item;
+use PbbgIo\Titan\ItemCategory;
 
 class ItemCategoryController extends Controller
 {

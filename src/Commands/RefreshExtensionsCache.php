@@ -1,13 +1,13 @@
 <?php
 
-namespace PbbgIo\TitanFramework\Commands;
+namespace PbbgIo\Titan\Commands;
 
 use App\User;
 use Carbon\Carbon;
 use Carbon\Laravel\ServiceProvider;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
-use PbbgIo\TitanFramework\Models\Settings;
+use PbbgIo\Titan\Models\Settings;
 
 class RefreshExtensionsCache extends Command
 {

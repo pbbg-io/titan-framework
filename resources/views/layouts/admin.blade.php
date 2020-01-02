@@ -16,7 +16,9 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Custom fonts for this template-->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="{{ mix('css/admin.css') }}" rel="stylesheet">
@@ -54,52 +56,76 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item   @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/groups', 'admin/users'])) active @endif">
-            <a class="nav-link" href="#" data-toggle="collapse" data-target="#usersAndRolesMenu" aria-expanded="@if(\Illuminate\Support\Str::contains(request()->path(), ['admin/groups', 'admin/users'])) true @else false @endif" aria-controls="usersAndRolesMenu">
+            <a class="nav-link" href="#" data-toggle="collapse" data-target="#usersAndRolesMenu"
+               aria-expanded="@if(\Illuminate\Support\Str::contains(request()->path(), ['admin/groups', 'admin/users'])) true @else false @endif"
+               aria-controls="usersAndRolesMenu">
                 <i class="fas fa-fw fa-user-astronaut"></i>
                 <span>Users & Roles</span>
             </a>
-            <div id="usersAndRolesMenu" class="collapse @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/groups', 'admin/users'])) show @endif" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div id="usersAndRolesMenu"
+                 class="collapse @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/groups', 'admin/users'])) show @endif"
+                 aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Users</h6>
-                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/users')) active @endif" href="{{ route('admin.users.index') }}"><i class="fas fa-user-astronaut"></i> Users</a>
-                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/users/create')) active @endif" href="{{ route('admin.users.create') }}"><i class="fas fa-plus-circle"></i> Add New</a>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/users')) active @endif"
+                       href="{{ route('admin.users.index') }}"><i class="fas fa-user-astronaut"></i> Users</a>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/users/create')) active @endif"
+                       href="{{ route('admin.users.create') }}"><i class="fas fa-plus-circle"></i> Add New</a>
                     <h6 class="collapse-header">Groups</h6>
-                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/groups')) active @endif" href="{{ route('admin.groups.index') }}"><i class="fas fa-users-cog"></i> Groups</a>
-                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/groups/create')) active @endif" href="{{ route('admin.groups.create') }}"><i class="fas fa-plus-circle"></i> Add New</a>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/groups')) active @endif"
+                       href="{{ route('admin.groups.index') }}"><i class="fas fa-users-cog"></i> Groups</a>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/groups/create')) active @endif"
+                       href="{{ route('admin.groups.create') }}"><i class="fas fa-plus-circle"></i> Add New</a>
 
                 </div>
             </div>
         </li>
         <li class="nav-item   @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/characters', 'admin/stats'])) active @endif">
-            <a class="nav-link" href="#" data-toggle="collapse" data-target="#characterStatsMenu" aria-expanded="@if(\Illuminate\Support\Str::contains(request()->path(), ['admin/characters', 'admin/stats'])) true @else false @endif" aria-controls="characterStatsMenu">
+            <a class="nav-link" href="#" data-toggle="collapse" data-target="#characterStatsMenu"
+               aria-expanded="@if(\Illuminate\Support\Str::contains(request()->path(), ['admin/characters', 'admin/stats'])) true @else false @endif"
+               aria-controls="characterStatsMenu">
                 <i class="fas fa-fw fa-user-graduate"></i>
                 <span>Characters & Stats</span>
             </a>
-            <div id="characterStatsMenu" class="collapse @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/characters', 'admin/stats'])) show @endif" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div id="characterStatsMenu"
+                 class="collapse @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/characters', 'admin/stats'])) show @endif"
+                 aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Characters</h6>
-                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/characters')) active @endif" href="{{ route('admin.characters.index') }}"><i class="fa fa-user-graduate"></i> Characters</a>
-                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/characters/create')) active @endif" href="{{ route('admin.characters.create') }}"><i class="fas fa-plus-circle"></i> Add New</a>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/characters')) active @endif"
+                       href="{{ route('admin.characters.index') }}"><i class="fa fa-user-graduate"></i> Characters</a>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/characters/create')) active @endif"
+                       href="{{ route('admin.characters.create') }}"><i class="fas fa-plus-circle"></i> Add New</a>
                     <h6 class="collapse-header">Stats</h6>
-                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/stats')) active @endif" href="{{ route('admin.stats.index') }}"><i class="fas fa-heart"></i> Stats</a>
-                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/stats/create')) active @endif" href="{{ route('admin.stats.create') }}"><i class="fas fa-plus-circle"></i> Add New</a>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/stats')) active @endif"
+                       href="{{ route('admin.stats.index') }}"><i class="fas fa-heart"></i> Stats</a>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/stats/create')) active @endif"
+                       href="{{ route('admin.stats.create') }}"><i class="fas fa-plus-circle"></i> Add New</a>
 
                 </div>
             </div>
         </li>
         <li class="nav-item   @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/items', 'admin/item-categories'])) active @endif">
-            <a class="nav-link" href="#" data-toggle="collapse" data-target="#itemsMenu" aria-expanded="@if(\Illuminate\Support\Str::contains(request()->path(), ['admin/items', 'admin/item-categories'])) true @else false @endif" aria-controls="itemsMenu">
+            <a class="nav-link" href="#" data-toggle="collapse" data-target="#itemsMenu"
+               aria-expanded="@if(\Illuminate\Support\Str::contains(request()->path(), ['admin/items', 'admin/item-categories'])) true @else false @endif"
+               aria-controls="itemsMenu">
                 <i class="fas fa-fw fa-gifts"></i>
                 <span>Items</span>
             </a>
-            <div id="itemsMenu" class="collapse @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/items', 'admin/item-categories'])) show @endif" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div id="itemsMenu"
+                 class="collapse @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/items', 'admin/item-categories'])) show @endif"
+                 aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Item Categories</h6>
-                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/item-categories')) active @endif" href="{{ route('admin.item-categories.index') }}"><i class="fas fa-heart"></i> Categories</a>
-                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/item-categories/create')) active @endif" href="{{ route('admin.item-categories.create') }}"><i class="fas fa-plus-circle"></i> Add New</a>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/item-categories')) active @endif"
+                       href="{{ route('admin.item-categories.index') }}"><i class="fas fa-heart"></i> Categories</a>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/item-categories/create')) active @endif"
+                       href="{{ route('admin.item-categories.create') }}"><i class="fas fa-plus-circle"></i> Add New</a>
                     <h6 class="collapse-header">Items</h6>
-                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/items')) active @endif" href="{{ route('admin.items.index') }}"><i class="fa fa-gifts"></i> Items</a>
-                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/items/create')) active @endif" href="{{ route('admin.items.create') }}"><i class="fas fa-plus-circle"></i> Add New</a>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/items')) active @endif"
+                       href="{{ route('admin.items.index') }}"><i class="fa fa-gifts"></i> Items</a>
+                    <a class="collapse-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/items/create')) active @endif"
+                       href="{{ route('admin.items.create') }}"><i class="fas fa-plus-circle"></i> Add New</a>
                 </div>
             </div>
         </li>
@@ -115,10 +141,10 @@
                 <span>Settings</span>
             </a>
         </li>
-        <li class="nav-item @if(request()->path() === 'admin/extensions') active @endif">
-            <a class="nav-link" href="{{ route('admin.extensions.index') }}">
+        <li class="nav-item @if(request()->path() === 'admin/modules') active @endif">
+            <a class="nav-link" href="{{ route('admin.modules.index') }}">
                 <i class="fas fa-fw fa-puzzle-piece"></i>
-                <span>Extensions</span>
+                <span>Modules</span>
             </a>
         </li>
         <li class="nav-item @if(request()->path() === 'admin/cronjobs') active @endif">
@@ -133,23 +159,43 @@
                 <span>Menus</span>
             </a>
         </li>
+        @if(modules('vendor')->enabled()->count() > 0)
 
-        <hr class="sidebar-divider">
+            <hr class="sidebar-divider">
 
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Extensions installed
-        </div>
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Modules
+            </div>
 
-        @foreach(resolve('extensions') as $extension)
-            <li class="nav-item @if(\Illuminate\Support\Str::contains(request()->path(), '/extensions/' . $extension->slug)) active @endif">
-                <a class="nav-link" href="{{ route('admin.extensions.manage', $extension->slug) }}">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>{{ ucwords(str_replace('Extensions\\', '', $extension->namespace)) }}</span>
-                </a>
-            </li>
-        @endforeach
+            @foreach(modules('vendor')->enabled() as $module)
+                <li class="nav-item @if(\Illuminate\Support\Str::contains(request()->path(), '/modules/' . $module['slug'])) active @endif">
+                    <a class="nav-link" href="{{ route('admin.modules.manage', $module['slug']) }}">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>{{ $module['name'] }}</span>
+                    </a>
+                </li>
+            @endforeach
         <!-- Divider -->
+        @endif
+        @if(modules('app')->enabled()->count() > 0)
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Local Modules
+            </div>
+
+            @foreach(\Caffeinated\Modules\Facades\Module::location('app')->enabled() as $module)
+                <li class="nav-item @if(\Illuminate\Support\Str::contains(request()->path(), '/modules/' . $module['slug'])) active @endif">
+                    <a class="nav-link" href="{{ route('admin.modules.manage', $module['slug']) }}">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>{{ $module['name'] }}</span>
+                    </a>
+                </li>
+            @endforeach
+        <!-- Divider -->
+        @endif
     </ul>
     <!-- End of Sidebar -->
 
@@ -169,29 +215,34 @@
 
                 <!-- Topbar Search -->
                 {!! \Form::open()->route('admin.search')->attrs(['class'    =>  'd-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search']) !!}
-                    <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" name="search" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button" onclick="submit()">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
-                        </div>
+                <div class="input-group">
+                    <input type="text" class="form-control bg-light border-0 small" name="search"
+                           placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" onclick="submit()">
+                            <i class="fas fa-search fa-sm"></i>
+                        </button>
                     </div>
-                {!! \Form::close() !!}
+                </div>
+            {!! \Form::close() !!}
 
-                <!-- Topbar Navbar -->
+            <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
 
                     <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                     <li class="nav-item dropdown no-arrow d-sm-none">
-                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-search fa-fw"></i>
                         </a>
                         <!-- Dropdown - Messages -->
-                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                             aria-labelledby="searchDropdown">
                             <form class="form-inline mr-auto w-100 navbar-search">
                                 <div class="input-group">
-                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                    <input type="text" class="form-control bg-light border-0 small"
+                                           placeholder="Search for..." aria-label="Search"
+                                           aria-describedby="basic-addon2">
                                     <div class="input-group-append">
                                         <button class="btn btn-primary" type="button">
                                             <i class="fas fa-search fa-sm"></i>
@@ -203,24 +254,26 @@
                     </li>
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small">Ian</span>
                             <img class="img-profile rounded-circle" src="https://source.unsplash.com/random/60x60">
                         </a>
                         <!-- Dropdown - User Information -->
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-{{--                            <a class="dropdown-item" href="#">--}}
-{{--                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>--}}
-{{--                                Profile--}}
-{{--                            </a>--}}
-{{--                            <a class="dropdown-item" href="#">--}}
-{{--                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>--}}
-{{--                                Settings--}}
-{{--                            </a>--}}
-{{--                            <a class="dropdown-item" href="#">--}}
-{{--                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>--}}
-{{--                                Activity Log--}}
-{{--                            </a>--}}
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                             aria-labelledby="userDropdown">
+                            {{--                            <a class="dropdown-item" href="#">--}}
+                            {{--                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>--}}
+                            {{--                                Profile--}}
+                            {{--                            </a>--}}
+                            {{--                            <a class="dropdown-item" href="#">--}}
+                            {{--                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>--}}
+                            {{--                                Settings--}}
+                            {{--                            </a>--}}
+                            {{--                            <a class="dropdown-item" href="#">--}}
+                            {{--                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>--}}
+                            {{--                                Activity Log--}}
+                            {{--                            </a>--}}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -267,7 +320,8 @@
 </a>
 
 <!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -296,7 +350,7 @@
 
 <!-- Scripts -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"/>
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
 <script src="{{ mix('js/admin.js') }}"></script>
 

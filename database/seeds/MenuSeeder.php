@@ -12,7 +12,7 @@ class MenuSeeder extends Seeder
     public function run()
     {
 
-        $menu = new \PbbgIo\TitanFramework\Menu();
+        $menu = new \PbbgIo\Titan\Menu();
         $menu->name = 'General';
         $menu->enabled = true;
         $menu->save();
@@ -51,8 +51,8 @@ class MenuSeeder extends Seeder
 
     }
 
-    private function addItem(array $item, \PbbgIo\TitanFramework\Menu $menu, $parent = null) {
-        $menuItem = new \PbbgIo\TitanFramework\MenuItem();
+    private function addItem(array $item, \PbbgIo\Titan\Menu $menu, $parent = null) {
+        $menuItem = new \PbbgIo\Titan\MenuItem();
         $menuItem->name = $item['name'];
         $menuItem->route = $item['route'];
         $menuItem->menu_id = $menu->id;

@@ -1,6 +1,6 @@
 <?php
 
-namespace PbbgIo\TitanFramework\Commands;
+namespace PbbgIo\Titan\Commands;
 
 use App\User;
 use Illuminate\Console\Command;

@@ -10,3 +10,7 @@ Route::group([
 ], function () {
     Route::get('/', 'GameHomeController@index')->name('game.home');
 });
+
+Route::get('/test', function() {
+    dd(app());
+});

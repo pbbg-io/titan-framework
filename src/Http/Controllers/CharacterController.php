@@ -1,12 +1,12 @@
 <?php
 
-namespace PbbgIo\TitanFramework\Http\Controllers;
+namespace PbbgIo\Titan\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use PbbgIo\TitanFramework\Character;
-use PbbgIo\TitanFramework\Http\Requests\CreateCharacterRequest;
+use PbbgIo\Titan\Character;
+use PbbgIo\Titan\Http\Requests\CreateCharacterRequest;
 
 class CharacterController extends Controller
 {

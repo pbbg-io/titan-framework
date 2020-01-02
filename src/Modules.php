@@ -1,11 +1,11 @@
 <?php
 
-namespace PbbgIo\TitanFramework;
+namespace PbbgIo\Titan;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 use Illuminate\Database\Eloquent\Model;
 
-class Extensions extends Model
+class Modules extends Model
 {
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace PbbgIo\TitanFramework\Http\Requests;
+namespace PbbgIo\Titan\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use PbbgIo\TitanFramework\Stat;
+use PbbgIo\Titan\Stat;
 
 class CreateUpdateStatRequest extends FormRequest
 {

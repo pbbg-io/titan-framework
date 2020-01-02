@@ -3,9 +3,10 @@
 namespace PbbgIo\Titan\Repositories;
 
 use Caffeinated\Modules\Repositories\Repository;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Str;
 
-class VendorRepository extends Repository
+class LocalRepository extends Repository
 {
     /**
      * Get all modules.
@@ -252,21 +253,13 @@ class VendorRepository extends Repository
         $basenames->each(function ($module, $key) use ($modules, $cache) {
             $basename = collect(['basename' => $module]);
             $temp     = $basename->merge(collect($cache->get($module)));
-
             $manifest = $temp->merge(collect($this->getManifest($module)));
-
-
-            if(!isset($temp['slug']))
-                return;
 
             $modules->put($module, $manifest);
         });
 
         $modules->each(function ($module) {
             $module->put('id', crc32($module->get('slug')));
-
-            if (!$module->has('slug'))
-                return;
 
             if (!$module->has('enabled')) {
                 $module->put('enabled', config("modules.locations.$this->location.enabled", true));
@@ -278,7 +271,6 @@ class VendorRepository extends Repository
 
             return $module;
         });
-
 
         $content = json_encode($modules->all(), JSON_PRETTY_PRINT);
 
@@ -334,21 +326,6 @@ class VendorRepository extends Repository
         return storage_path("app/modules/$location.json");
     }
 
-    public function getModulePath($slug)
-    {
-        $module = Str::studly($slug);
-
-//        dd($slug, $module);
-//        $res = glob("{$this->getPath()}/*/{$slug}/titan.json");
-//        dump($res);
-
-//        if (count($res) > 0) {
-//            dump($res);
-//            return $res[0];
-//        }
-        return $this->getPath()."/{$slug}/";
-    }
-
 
     /**
      * Get a module's manifest contents.
@@ -370,10 +347,10 @@ class VendorRepository extends Repository
 
                     return $collection;
                 }
-                throw new \Exception('['.$slug.'] Your JSON manifest file was not properly formatted. Check for formatting issues and try again.');
             } catch(\Exception $exception) {
             }
 
+            throw new \Exception('['.$slug.'] Your JSON manifest file was not properly formatted. Check for formatting issues and try again.');
 
         }
     }

@@ -8,6 +8,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 use PbbgIo\Titan\Extensions;
 
@@ -178,15 +179,14 @@ class ModuleController extends Controller
 
         if(!class_exists($class))
         {
-            abort(503, "Class '{$class}' not found for module '{$module['slug']}'");
+            Log::error("Class '{$class}' not found for module '{$module['slug']}'");
+            return false;
         }
 
         $moduleClass = new $class;
 
         if (method_exists($moduleClass, $method)) {
             return $moduleClass->$method();
-        } else {
-            abort(503, "Method '{$method}' on controller '{$className}' not found for module '{$module['slug']}'");
         }
 
         return false;

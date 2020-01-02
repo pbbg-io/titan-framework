@@ -23,7 +23,7 @@
     },
     "autoload": {
         "psr-4": {
-            "PbbgIo\\TitanFramework\\": "./src"
+            "PbbgIo\\Titan\\": "./src"
         },
         "classmap": [
             "database/seeds"

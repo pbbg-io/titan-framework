@@ -25,13 +25,13 @@
     },
     "autoload": {
         "psr-4": {
-            "PbbgIo\\Titan\\": "./src"
+            "PbbgIo\\Titan\\": "src/"
         },
         "classmap": [
             "database/seeds"
         ],
         "files": [
-            "src/Helpers/Extension.php"
+            "src/Helpers/Extensions.php"
         ]
     },
     "autoload-dev": {

@@ -1,5 +1,5 @@
 {
-    "name": "pbbg-io/titan",
+    "name": "pbbg-io/titan-framework",
     "description": "A description for titan-framework.",
     "type": "package",
     "license": "MIT",
@@ -19,10 +19,9 @@
         "spatie/laravel-permission": "^3.3",
         "laracasts/flash": "^3.0",
         "barryvdh/laravel-debugbar": "^3.2",
-        "guzzlehttp/guzzle": "~6.0",
+        "rap2hpoutre/laravel-log-viewer": "^1.3",
         "mews/purifier": "^3.1",
-        "caffeinated/modules": "^6.1",
-        "rap2hpoutre/laravel-log-viewer": "^1.3"
+        "guzzlehttp/guzzle": "~6.0"
     },
     "autoload": {
         "psr-4": {
@@ -30,6 +29,9 @@
         },
         "classmap": [
             "database/seeds"
+        ],
+        "files": [
+            "src/Helpers/Extension.php"
         ]
     },
     "autoload-dev": {
@@ -43,7 +45,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "PbbgIo\\TitanFramework\\TitanFrameworkServiceProvider"
+                "PbbgIo\\Titan\\TitanServiceProvider"
             ]
         }
     },

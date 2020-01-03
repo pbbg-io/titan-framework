@@ -8,20 +8,20 @@ Route::group([
     Route::get('/', 'HomeController@index')
         ->name('admin.home');
 
-    Route::get('/modules', 'ModuleController@index')
-        ->name('admin.modules.index');
+    Route::get('/extensions', 'ExtensionController@index')
+        ->name('admin.extensions.index');
 
-    Route::get('/modules/{slug}', 'ModuleController@showMarketplacePage')
-        ->name('admin.modules.show');
+    Route::get('/extensions/{slug}', 'ExtensionController@showMarketplacePage')
+        ->name('admin.extensions.show');
 
-    Route::get('/modules/{slug}/manage', 'ModuleController@manage')
-        ->name('admin.modules.manage');
+    Route::get('/extensions/{slug}/manage', 'ExtensionController@manage')
+        ->name('admin.extensions.manage');
 
-    Route::get('/modules/{slug}/install', 'ModuleController@install')
-        ->name('admin.modules.install');
+    Route::get('/extensions/{slug}/install', 'ExtensionController@install')
+        ->name('admin.extensions.install');
 
-    Route::get('/modules/{slug}/uninstall', 'ModuleController@uninstall')
-        ->name('admin.modules.uninstall');
+    Route::get('/extensions/{slug}/uninstall', 'ExtensionController@uninstall')
+        ->name('admin.extensions.uninstall');
 
     Route::get('/users/datatable', 'UserController@datatable')
         ->name('admin.users.datatable');

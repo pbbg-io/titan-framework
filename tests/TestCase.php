@@ -16,7 +16,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            \PbbgIo\Titan\TitanServiceProvider::class,
+            \PbbgIo\Titan\TitanFrameworkServiceProvider::class,
         ];
     }
 

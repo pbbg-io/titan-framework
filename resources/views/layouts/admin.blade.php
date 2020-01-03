@@ -141,10 +141,10 @@
                 <span>Settings</span>
             </a>
         </li>
-        <li class="nav-item @if(request()->path() === 'admin/modules') active @endif">
-            <a class="nav-link" href="{{ route('admin.modules.index') }}">
+        <li class="nav-item @if(request()->path() === 'admin/extensions') active @endif">
+            <a class="nav-link" href="{{ route('admin.extensions.index') }}">
                 <i class="fas fa-fw fa-puzzle-piece"></i>
-                <span>Modules</span>
+                <span>Extensions</span>
             </a>
         </li>
         <li class="nav-item @if(request()->path() === 'admin/cronjobs') active @endif">
@@ -165,38 +165,20 @@
                 <span>Logs</span>
             </a>
         </li>
-        @if(modules('vendor')->enabled()->count() > 0)
+        @if(resolve('extensions')->getCache()->count() > 0)
 
             <hr class="sidebar-divider">
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Modules
+                Extensions installed
             </div>
 
-            @foreach(modules('vendor')->enabled() as $module)
-                <li class="nav-item @if(\Illuminate\Support\Str::contains(request()->path(), '/modules/' . $module['slug'])) active @endif">
-                    <a class="nav-link" href="{{ route('admin.modules.manage', $module['slug']) }}">
+            @foreach(resolve('extensions')->getCache()->where('enabled', true) as $extension)
+                <li class="nav-item @if(\Illuminate\Support\Str::contains(request()->path(), '/extensions/' . $extension['slug'])) active @endif">
+                    <a class="nav-link" href="{{ route('admin.extensions.manage', $extension['slug']) }}">
                         <i class="fas fa-fw fa-folder"></i>
-                        <span>{{ $module['name'] }}</span>
-                    </a>
-                </li>
-            @endforeach
-        <!-- Divider -->
-        @endif
-        @if(modules('app')->enabled()->count() > 0)
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Local Modules
-            </div>
-
-            @foreach(\Caffeinated\Modules\Facades\Module::location('app')->enabled() as $module)
-                <li class="nav-item @if(\Illuminate\Support\Str::contains(request()->path(), '/modules/' . $module['slug'])) active @endif">
-                    <a class="nav-link" href="{{ route('admin.modules.manage', $module['slug']) }}">
-                        <i class="fas fa-fw fa-folder"></i>
-                        <span>{{ $module['name'] }}</span>
+                        <span>{{ ucwords(str_replace('Extensions\\', '', $extension['namespace'])) }}</span>
                     </a>
                 </li>
             @endforeach

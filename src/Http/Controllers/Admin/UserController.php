@@ -98,7 +98,6 @@ class UserController extends Controller
             $user->characters
                 ->each(function ($char) {
                     $char->stats->each(function ($stat) {
-                        dd($stat);
                         $stat->delete();
                     });
 

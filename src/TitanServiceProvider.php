@@ -12,8 +12,9 @@ use PbbgIo\Titan\Commands\SuperAdmin;
 use PbbgIo\Titan\Commands\UpdateTitan;
 use PbbgIo\Titan\Models\Settings;
 use PbbgIo\Titan\Observers\StatObserver;
+use PbbgIo\Titan\Providers\ExtensionServiceProvider;
 
-class TitanFrameworkServiceProvider extends ServiceProvider
+class TitanServiceProvider extends ServiceProvider
 {
 
     /**
@@ -23,10 +24,12 @@ class TitanFrameworkServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
         $this->loadRoutesFrom(__DIR__ . '/routes.php');
 
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'titan');
 
         $this->commands([
             InstallTitan::class,
@@ -43,27 +46,6 @@ class TitanFrameworkServiceProvider extends ServiceProvider
             __DIR__ . '/../resources/js' => resource_path('js'),
         ], 'titan');
 
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'titan');
-
-        $extensions = resolve('extensions');
-
-        foreach ($extensions as $ext) {
-
-            $realNameSpace = $ext->namespace;
-            $folderPath = \Str::kebab($ext->namespace);
-            $folderPath = str_replace(['\\-', '\\'], '/', $folderPath);
-
-            $serviceProvider = "{$realNameSpace}\\ServiceProvider";
-            $serviceProviderPath = base_path("{$folderPath}/ServiceProvider.php");
-
-            if (file_exists($serviceProviderPath)) {
-                include_once $serviceProviderPath;
-                $this->app->register($serviceProvider);
-            } else {
-                Log::warning("Trying to load {$serviceProvider} {$serviceProviderPath} but failed");
-            }
-        }
-
         \Gate::before(function ($user, $ability) {
             return $user->hasRole('Super Admin') ? true : null;
         });
@@ -74,6 +56,8 @@ class TitanFrameworkServiceProvider extends ServiceProvider
         });
 
         Stat::observe(StatObserver::class);
+
+        $this->app->register(ExtensionServiceProvider::class);
     }
 
     /**
@@ -83,19 +67,6 @@ class TitanFrameworkServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
-        $this->app->singleton('extensions', function () {
-
-            $ext = collect();
-
-            try {
-                $ext = Extensions::all();
-            } catch (\Exception $exception) {
-            }
-
-            return $ext;
-        });
-
         $this->app->singleton('menu', function () {
             $menu = Menu::with('items')->whereEnabled(true)->get();
             return $menu;

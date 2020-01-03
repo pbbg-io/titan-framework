@@ -14,59 +14,114 @@ use PbbgIo\Titan\Extensions;
 class ExtensionController extends Controller
 {
 
-    private $localExtensions;
-    private $publicExtensions;
+    private $local_extensions;
+    private $remote_extensions;
 
     public function index(): View
     {
-        $availableExtensions = $this->loadPublicExtensions()->all();
+        $extensions = resolve('extensions')->getCache();
 
-        if (request()->query('page', 0) === 0) {
-            $offset = 0;
+        $type = request()->query('type', 'all');
+
+        $enabled = request()->query('enabled', null);
+
+        if ($type === 'local') {
+            $extensions = $this->loadExtensions('local_extensions', $enabled);
         } else {
-            $offset = request()->query('page', 1) * 9;
+            if ($type === 'vendor') {
+                $extensions = $this->loadExtensions('remote_extensions', $enabled);
+            } else {
+                $extensions = $this->loadExtensions('local_extensions', $enabled);
+            }
         }
 
-        $availableExtensions = new LengthAwarePaginator(array_slice($availableExtensions, $offset, 9),
-            count($availableExtensions), 9);
+        $perPage = 9;
 
-        $availableExtensions->withPath(route('admin.extensions.index'));
+        $offset = (request()->query('page', 1) - 1) * 1;
 
-        $localExtensions = $this->loadLocalExtensions();
+        $extensions = new LengthAwarePaginator(
+            array_slice($extensions->toArray(), $offset, $perPage),
+            $extensions->count(),
+            $perPage
+        );
 
-        return view('titan::admin.extensions.index', compact('availableExtensions', 'localExtensions'));
+        $extensions->withPath(route('admin.extensions.index'));
+
+        [$currentFilter, $filters] = $this->handleFilters();
+
+        return view('titan::admin.extensions.index', compact('extensions', 'filters', 'currentFilter'));
     }
 
     public function showMarketplacePage($slug): View
     {
-        $ext = Extensions::where('slug', $slug)->first() ?? new \stdClass();
+        $extension = resolve('extensions')->getCache()->firstWhere('slug', $slug);
 
-        $ext->json = $this->getExtensionFromJSON($slug);
+        if (!$extension) {
+            abort(404, 'No extension was found');
+        }
 
-        $extensionName = $ext->json['name'];
-
-        return view('titan::admin.extensions.manage', compact('extensionName', 'ext'));
+        return view('titan::admin.extensions.manage', compact('extension'));
     }
 
     public function manage($slug): View
     {
-        $ext = Extensions::where('slug', $slug)->first() ?? new \stdClass();
 
-        $ext->json = $this->getExtensionFromJSON($slug);
+        $extension = resolve('extensions')->getCache()->firstWhere('slug', $slug);
 
-        $extensionName = $ext->json['name'];
 
-        if (!$ext->json) {
+        if (!$extension) {
             abort(404, 'No extension was found');
         }
 
-
-        $call = $this->callExtensionMethod('AdminController', 'index', $ext);
+        $call = $this->callExtensionMethod('AdminController', 'index', $extension);
 
         if($call !== false)
             return $call;
 
-        return view('titan::admin.extensions.manage', compact('extensionName', 'ext'));
+        return view('titan::admin.extensions.manage', compact('extension'));
+    }
+
+    private function handleFilters()
+    {
+        $currentFilter = function ($filter, $option) {
+            $filters = [];
+
+            foreach (request()->query() as $param => $value) {
+                $filters[$param] = $value;
+            }
+
+            $filters[$filter['param']] = $option;
+
+            return $filters;
+        };
+
+        $filters = [
+            [
+                // Header on the filter
+                'filter_name' => 'Type',
+                //Query param name
+                'param' => 'type',
+                // Filters to display
+                'options' => [
+                    'all' => 'All Modules',
+                    'vendor' => '3rd Party Modules',
+                    'local' => 'Your Modules',
+                ],
+                'default' => 'all'
+            ],
+            [
+                'filter_name' => 'Enabled',
+                'param' => 'enabled',
+                'options' => [
+                    'all' => 'All Modules',
+                    'true' => 'Enabled',
+                    'false' => 'Disabled',
+                ],
+                'default' => 'all'
+            ],
+        ];
+
+        return [$currentFilter, $filters];
     }
 
     private function callExtensionMethod($className, $method, $ext)
@@ -84,119 +139,60 @@ class ExtensionController extends Controller
         return false;
     }
 
-    private function loadLocalExtensions(): Collection
-    {
-        if ($this->localExtensions) {
-            return $this->localExtensions;
+    private function loadExtensions(string $type, $enabled = null) {
+
+        if (!$this->$type) {
+            $cache = resolve('extensions')->getCache();
+        } else {
+            $cache = $this->$type;
         }
 
-        $localExtensionFiles = glob(base_path('/extensions/*/*/composer.json'));
-        $localExtensions = [];
+        if($enabled === "true")
+            $cache = $cache->where('enabled', true);
+        else if($enabled === "false")
+            $cache = $cache->where('enabled', false);
 
-        foreach ($localExtensionFiles as $file) {
-            $composer = json_decode(file_get_contents($file));
+        $this->$type = $cache;
 
-            if (!$composer) {
-                continue;
-            }
-
-            $nameEx = explode('/', $composer->name);
-            $author = $nameEx[0];
-            $packageName = $nameEx[1];
-
-            $localExtensions[] = [
-                'name' => $composer->extra->titan->name,
-                'description' => $composer->description,
-                'version' => '1.0.0',
-                'authors' => $composer->authors,
-                'slug' => \Str::kebab(str_replace(['\\', 'Extensions'], [' ', ''], $composer->extra->titan->namespace)),
-                'rating' => '4.0',
-                'ratings' => 20,
-                'installs' => 3237,
-                'local' => true,
-                'namespace' => $composer->extra->titan->namespace,
-            ];
-
-        }
-
-        $this->localExtensions = collect($localExtensions);
-
-        return $this->localExtensions;
-    }
-
-    private function loadPublicExtensions(): Collection
-    {
-
-        if ($this->publicExtensions) {
-            return $this->publicExtensions;
-        }
-
-        $availableExtensions = json_decode(\Storage::disk('local')->get('extensions.json'), true);
-
-        $this->publicExtensions = collect($availableExtensions['extensions']);
-
-        return $this->publicExtensions;
-    }
-
-    private function getExtensionFromJSON($slug): array
-    {
-        $found = $this->loadLocalExtensions()->firstWhere('slug', $slug);
-
-        // Try checking locally
-        if (!$found) {
-            $extensions = $this->loadPublicExtensions();
-            $found = $extensions->firstWhere('slug', $slug);
-        }
-
-
-        return $found;
+        return $cache;
     }
 
     public function install($slug): RedirectResponse
     {
-        if (Extensions::whereSlug($slug)->exists()) {
-            flash("That extension is already installed")->error();
-            return redirect()->back();
-        }
+        $cache = resolve('extensions');
 
-        $eJson = $this->getExtensionFromJSON($slug);
+        $cache->enable($slug);
 
-        $provider = "\\{$eJson['namespace']}\\ServiceProvider";
+        $extension = $cache->getCache()->firstWhere('slug', $slug);
 
-        // Register the provider so you can publish assets and such
+        $provider = "\\{$extension['namespace']}\\ServiceProvider";
+
         app()->register($provider);
 
-        $call = $this->callExtensionMethod('InstallController', 'install', $eJson);
+        $this->callExtensionMethod('InstallController', 'install', $extension);
 
-        $extension = new Extensions();
-        $extension->namespace = $eJson['namespace'];
-        $extension->slug = $eJson['slug'];
-        $extension->save();
+        flash("{$extension['name']} has been installed")->success();
 
-        flash("{$eJson['name']} has been installed")->success();
-
-        return redirect()->route('admin.extensions.show', $extension->slug);
+        return redirect()->route('admin.extensions.show', $extension['slug']);
     }
 
     public function uninstall($slug)
     {
-        $extension = Extensions::where('slug', $slug)->first();
+        $cache = resolve('extensions');
 
-        if (!$extension->exists()) {
-            flash("This extension hasn't been installed yet")->error();
+        $cache->disable($slug);
 
-            return redirect()->back();
-        }
+        $extension = $cache->getCache()->firstWhere('slug', $slug);
 
-        $eJson = $this->getExtensionFromJSON($slug);
+        $provider = "\\{$extension['namespace']}\\ServiceProvider";
 
-        $call = $this->callExtensionMethod('InstallController', 'uninstall', $extension);
+        app()->register($provider);
 
-        flash("{$eJson['name']} has been uninstalled")->success();
+        $this->callExtensionMethod('InstallController', 'uninstall', $extension);
 
-        $extension->delete();
+        flash("{$extension['name']} has been uninstalled")->success();
 
-        return redirect()->route('admin.extensions.show', $extension->slug);
+        return redirect()->route('admin.extensions.show', $extension['slug']);
 
     }
 }

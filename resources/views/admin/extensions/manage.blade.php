@@ -3,13 +3,13 @@
 @section('page')
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">{{ $ext->json['name'] }}
+    <h1 class="h3 mb-4 text-gray-800">{{ $extension['name'] }}
         <span class="float-right">
-            @if(isset($ext->id))
-                <a href="{{ route('admin.extensions.uninstall', $ext->json['slug']) }}"
+            @if(resolve('extensions')->enabled($extension['slug']))
+                <a href="{{ route('admin.extensions.uninstall', $extension['slug']) }}"
                    class="btn btn-danger">Uninstall</a>
             @else
-                <a href="{{ route('admin.extensions.install', $ext->json['slug']) }}"
+                <a href="{{ route('admin.extensions.install', $extension['slug']) }}"
                    class="btn btn-success">Install</a>
             @endif
         </span>
@@ -18,13 +18,13 @@
     <div class="row">
         <div class="col-9">
 
-            @if(isset($ext->json['local']))
+            @if(isset($extension['local']))
                 <p class="alert alert-warning">This extension is locally required</p>
             @endif
             <div class="card">
                 <div class="card-body">
                     <p>
-                        {{ $ext->json['description'] }}
+                        {{ $extension['description'] }}
                     </p>
                 </div>
             </div>
@@ -37,15 +37,15 @@
                 <div class="card-body">
                     <ul class="list-unstyled mb-0">
                         <li>Rating:
-                            @if($ext->json['rating'] === 0) 0 @else
+                            @if($extension['rating'] === 0) 0 @else
 
-                                @for($i=0;$i<$ext->json['rating']??0;$i++)
+                                @for($i=0;$i<$extension['rating'];$i++)
                                     <i class="fas fa-star"></i>
                                 @endfor
                             @endif
-                            <span>({{ number_format($ext->json['ratings']) }})</span>
+                            <span>({{ number_format($extension['ratings']) }})</span>
                         </li>
-                        <li>Installs: {{ number_format($ext->json['installs']) }}</li>
+                        <li>Installs: {{ number_format($extension['installs']) }}</li>
                     </ul>
                 </div>
             </div>

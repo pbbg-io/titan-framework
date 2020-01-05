@@ -3,9 +3,11 @@
 namespace PbbgIo\Titan;
 
 use Illuminate\Database\Eloquent\Model;
+use KyleMassacre\BanUser\Entities\CanBanPlayable;
 
 class Character extends Model
 {
+    use CanBanPlayable;
 
     protected $casts = [
         'last_move' =>  'datetime'

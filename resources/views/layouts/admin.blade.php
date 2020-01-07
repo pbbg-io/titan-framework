@@ -105,6 +105,12 @@
                 </div>
             </div>
         </li>
+        <li class="nav-item @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/ban'])) active @endif">
+            <a class="nav-link" href="{{ route('admin.banuser.index') }}">
+                <i class="fas fa-fw fas fa-user-shield"></i>
+                <span>Bans</span>
+            </a>
+        </li>
         <li class="nav-item   @if(\Illuminate\Support\Str::contains(request()->path(), ['admin/items', 'admin/item-categories'])) active @endif">
             <a class="nav-link" href="#" data-toggle="collapse" data-target="#itemsMenu"
                aria-expanded="@if(\Illuminate\Support\Str::contains(request()->path(), ['admin/items', 'admin/item-categories'])) true @else false @endif"

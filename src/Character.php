@@ -3,11 +3,11 @@
 namespace PbbgIo\Titan;
 
 use Illuminate\Database\Eloquent\Model;
-use KyleMassacre\BanUser\Entities\CanBanPlayable;
+use Illuminate\Support\Carbon;
+use KyleMassacre\BanUser\Entities\Ban;
 
 class Character extends Model
 {
-    use CanBanPlayable;
 
     protected $casts = [
         'last_move' =>  'datetime'
@@ -63,6 +63,54 @@ class Character extends Model
             $cs->value = $stat->default;
             $cs->save();
         }
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function banned()
+    {
+        return $this->morphMany(Ban::class, 'bannable');
+    }
+
+    /**
+     * Bans the playable class. If the ban exists, it will update the ban.
+     *
+     * @param string $reason
+     * @param null $time
+     * @param bool $forever
+     * @return bool
+     */
+    public function placeBan(string $reason, $time = null, bool $forever = false)
+    {
+        return Ban::updateOrCreate([
+            'bannable_id' => $this->attributes['id'],
+            'bannable_type' => get_class($this)
+        ], [
+            'reason' => $reason,
+            'ban_until' => ($time != null ? Carbon::parse($time)->toDateString() : null),
+            'forever' => $forever
+        ])->exists();
+    }
+
+    /**
+     * Checks to see if the if the playable is banned
+     *
+     * @return bool
+     */
+    public function isBanned()
+    {
+        return $this->banned()->exists();
+    }
+
+    /**
+     * Returns the value of the name column in the class
+     *
+     * @return mixed
+     */
+    public function getNameAttribute()
+    {
+        return $this->attributes['display_name'];
     }
 
 }

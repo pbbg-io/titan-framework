@@ -30,6 +30,7 @@ class CreateUpdateItemCategoryRequest extends FormRequest
             'consumable_uses'    =>  'nullable|integer|min:0',
             'buyable'    =>  'nullable|in:0,1',
             'stackable'    =>  'nullable|in:0,1',
+            'parent_id' =>  'nullable|exists:item_categories,id'
         ];
     }
 }

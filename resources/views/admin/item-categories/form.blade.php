@@ -1,5 +1,16 @@
 <h2>Item Category Information</h2>
 {!! \Form::text('name', 'Name of the item category, eg, robes, swords, wands, guns') !!}
+<div class="form-group">
+    <label for="inp-roles" class="">Parent Category</label>
+    <select name="parent_id" id="type" class="form-control">
+        <option value="">Select an optional parent category</option>
+        @foreach($item_categories as $cat)
+            <option value="{{ $cat->id }}"
+                    @if(isset($item_category) && $item_category->id === $cat->parent_id) selected @endif>{{ $cat->name }}</option>
+        @endforeach
+    </select>
+</div>
+
 {!! \Form::checkbox('stackable', 'Stackable?', 1) !!}
 {!! \Form::checkbox('equippable', 'Equippable?', 1) !!}
 

@@ -32,7 +32,8 @@ class ItemCategoryController extends Controller
      */
     public function create(): View
     {
-        return view('titan::admin.item-categories.create');
+        $item_categories = ItemCategory::all();
+        return view('titan::admin.item-categories.create', compact('item_categories'));
     }
 
     /**
@@ -50,6 +51,7 @@ class ItemCategoryController extends Controller
         $category->consumable = $request->has('consumable') ?? false;
         $category->consumable_uses = $request->input('consumable_uses') ?? 0;
         $category->buyable = $request->has('buyable') ?? false;
+        $category->parent_id = $request->input('parent_id', null);
         $category->save();
 
         flash("Item Category created")->success();
@@ -83,7 +85,9 @@ class ItemCategoryController extends Controller
         $item_category->equippable = (string) $item_category->equippable;
         $item_category->stackable = (string) $item_category->stackable;
 
-        return view('titan::admin.item-categories.edit', compact('item_category'));
+        $item_categories = ItemCategory::all();
+
+        return view('titan::admin.item-categories.edit', compact('item_category', 'item_categories'));
     }
 
     /**
@@ -101,6 +105,7 @@ class ItemCategoryController extends Controller
         $item_category->consumable = $request->has('consumable') ?? false;
         $item_category->consumable_uses = $request->input('consumable_uses') ?? 0;
         $item_category->buyable = $request->has('buyable') ?? false;
+        $item_category->parent_id = $request->input('parent_id', null);
         $item_category->save();
 
         flash("Item Category created")->success();
@@ -120,8 +125,13 @@ class ItemCategoryController extends Controller
                 'item_category_id'  =>  null
             ]);
 
+        ItemCategory::whereParentId($item_category->id)
+            ->update([
+                'parent_id' =>  null
+            ]);
+
         $item_category->delete();
-        flash("Item category has been deleted")->success();
+        flash("Item category has been deleted, items have been unassigned and sub categories parent id has been updated to null")->success();
 
         return response()->json(['ok']);
     }

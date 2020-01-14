@@ -143,26 +143,6 @@ class InstallTitan extends Command
         }
     }
 
-    private function askGameQuestions(): void
-    {
-        $this->askConfigQuestion('game.name', 'What is your game name?');
-        $this->askConfigQuestion('game.owner', 'Who is the game owner?');
-        $this->askConfigQuestion('game.description', 'What is the game description?');
-
-        $this->sendBanner([
-            'Game name: ' . $this->config['game.name'],
-            'Game owner: ' . $this->config['game.owner'],
-            'Game description: ' . $this->config['game.description'],
-        ]);
-
-        if (!$this->confirm("Are the above details correct?")) {
-            $this->config['game.name'] = null;
-            $this->config['game.owner'] = null;
-            $this->config['game.description'] = null;
-            $this->askGameQuestions();
-        }
-    }
-
     private function askUserQuestions(): void
     {
         $this->askConfigQuestion('admin.username', 'What will be your username?');
@@ -171,7 +151,7 @@ class InstallTitan extends Command
 
         $this->sendBanner([
             'Admin Username: ' . $this->config['admin.username'],
-            'Admin Password: ' . $this->config['admin.password'],
+            'Admin Password: [hidden]',
             'Admin Email: ' . $this->config['admin.email'],
         ]);
 
@@ -216,16 +196,9 @@ class InstallTitan extends Command
 
         $user->assignRole($role);
 
-        Settings::create([
-            'key' => 'game.owner',
-            'value' => $this->config['game.owner']
-        ]);
-
-        Settings::create([
-            'key' => 'game.description',
-            'value' => $this->config['game.description']
-        ]);
-
+        $role = new Role();
+        $role->name = 'Registered Users';
+        $role->save();
     }
 
     private function setupDatabase(): void

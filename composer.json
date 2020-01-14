@@ -32,7 +32,8 @@
             "database/seeds"
         ],
         "files": [
-            "src/Helpers/Extensions.php"
+            "src/Helpers/Extensions.php",
+            "src/Helpers/functions.php"
         ]
     },
     "autoload-dev": {

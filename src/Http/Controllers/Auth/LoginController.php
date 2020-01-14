@@ -3,8 +3,11 @@
 namespace PbbgIo\Titan\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Laravel\Socialite\Facades\Socialite;
+use PbbgIo\Titan\SocialProvider;
 
 class LoginController extends Controller
 {
@@ -52,10 +55,44 @@ class LoginController extends Controller
 
         // Get these from settings
 
+        return Socialite::driver($provider)->redirect();
+
 
     }
 
     public function handleProviderCallback($provider, Request $request) {
 
+        try {
+            $user = Socialite::driver($provider)->user();
+        } catch (\Exception $e) {
+            dd($e);
+        }
+        $authUser = $this->findOrCreateUser($user, $provider);
+        auth()->login($authUser, true);
+        return redirect()->to('dashboard');
+    }
+
+
+    private function findOrCreateUser($user, $provider)
+    {
+        if ($authUser = SocialProvider::where('providerId', $user->id)->where('provider',$provider)->first()) {
+            return $authUser->user;
+        }
+        $newUser = new User([
+            'name' => isset($user->name) ? $user->name : $user->nickname,
+            'email' => $user->email,
+        ]);
+
+        $newUser->save();
+
+        $socialProvider = new SocialProvider([
+            'user_id' => $newUser->id,
+            'provider' => $provider,
+            'providerId' => $user->getId(),
+            'avatar' => $user->avatar
+        ]);
+        $socialProvider->save();
+
+        return $newUser;
     }
 }

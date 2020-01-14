@@ -72,11 +72,12 @@
             <div class="card">
                 <div class="card-header">{{ __('Login with Social') }}</div>
                 @php
-                $enabled_socials = ['facebook', 'twitter', 'google', 'github']
+                $enabled_socials = collect(config('services'))->only(['facebook', 'twitter', 'google', 'github'])
+    ->where('enabled', false);
                 @endphp
                 <div class="card-body">
                     <ul class="list-unstyled">
-                        @foreach($enabled_socials as $social)
+                        @foreach($enabled_socials as $social => $config)
 
 
                             <li class="mb-2">

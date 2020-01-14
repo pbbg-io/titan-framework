@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class CharacterStat extends Model
 {
+    protected $with = [
+        'type'
+    ];
+
     /**
      * Get the defined type of the stat
      *

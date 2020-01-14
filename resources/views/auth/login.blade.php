@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+                <div class="card-header">{{ __('Login with email') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
@@ -65,6 +65,28 @@
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">{{ __('Login with Social') }}</div>
+                @php
+                $enabled_socials = ['facebook', 'twitter', 'google', 'github']
+                @endphp
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        @foreach($enabled_socials as $social)
+
+
+                            <li class="mb-2">
+                                <a href="{{ route('login.social', $social) }}" class="btn btn-block btn-social btn-{{$social}}">
+                                    <span class="fab fa-{{$social}}"></span>
+                                    {{ \Str::title($social) }}</a>
+                            </li>
+
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>

@@ -132,15 +132,6 @@ Route::group([
         'destroy' => 'admin.groups.destroy',
     ]);
 
-    Route::get('/settings', 'SettingController@index')
-        ->name('admin.settings.index');
-
-    Route::get('/settings/{setting}', 'SettingController@edit')
-        ->name('admin.settings.edit');
-
-    Route::post('/settings/{setting}', 'SettingController@update')
-        ->name('admin.settings.update');
-
     Route::post('/search', 'SearchController@index')
         ->name('admin.search');
 
@@ -153,7 +144,6 @@ Route::group([
         'delete' => 'admin.menu.delete',
         'destroy' => 'admin.menu.destroy',
     ]);
-
 
     Route::put('menu/items/{menu}/sort', 'MenuController@sort')
         ->name('admin.menu.sort');

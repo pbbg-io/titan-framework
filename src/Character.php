@@ -63,4 +63,9 @@ class Character extends Model
         }
     }
 
+    public function getStat($statName) {
+        return $this->stats->where('type.stat', $statName)->first()->value;
+    }
+
+
 }

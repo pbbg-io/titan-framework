@@ -47,4 +47,15 @@ class LoginController extends Controller
     {
         session()->forget('character_logged_in');
     }
+
+    public function redirectToProvider($provider, Request $request) {
+
+        // Get these from settings
+
+
+    }
+
+    public function handleProviderCallback($provider, Request $request) {
+
+    }
 }

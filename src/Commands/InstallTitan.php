@@ -49,8 +49,6 @@ class InstallTitan extends Command
     {
         $this->sendBanner("First up are some technical questions, like setting up your database");
         $this->askTechnicalQuestions();
-        $this->sendBanner("Next up are a few details about the game");
-        $this->askGameQuestions();
         $this->sendBanner("Almost done now, just need some details to set you up an admin account");
         $this->askUserQuestions();
         $this->saveConfig();
@@ -159,7 +157,7 @@ class InstallTitan extends Command
             $this->config['admin.username'] = null;
             $this->config['admin.password'] = null;
             $this->config['admin.email'] = null;
-            $this->askGameQuestions();
+            $this->askUserQuestions();
         }
     }
 

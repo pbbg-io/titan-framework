@@ -21,7 +21,10 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
+    <link href="{{ mix('css/font-awesome.css') }}" rel="stylesheet">
     <link href="{{ mix('css/admin.css') }}" rel="stylesheet">
+
+    @stack('css')
 
 </head>
 <body id="page-top">

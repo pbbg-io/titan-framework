@@ -2,6 +2,7 @@
 
 namespace PbbgIo\Titan;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Character extends Model
@@ -67,5 +68,28 @@ class Character extends Model
         return $this->stats->where('type.stat', $statName)->first()->value;
     }
 
+    public function banned()
+    {
+        return $this->morphMany(Ban::class, 'bannable');
+    }
+    public function placeBan(string $reason, $time = null, bool $forever = false)
+    {
+        return Ban::updateOrCreate([
+            'bannable_id' => $this->attributes['id'],
+            'bannable_type' => get_class($this)
+        ], [
+            'reason' => $reason,
+            'ban_until' => ($time != null ? Carbon::parse($time)->toDateString() : null),
+            'forever' => $forever
+        ])->exists();
+    }
+    public function isBanned()
+    {
+        return $this->banned()->exists();
+    }
+    public function getNameAttribute()
+    {
+        return $this->attributes['display_name'] ?? $this->attributes['name'];
+    }
 
 }

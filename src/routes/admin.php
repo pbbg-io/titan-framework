@@ -157,4 +157,25 @@ Route::group([
     Route::get('logs', 'LogController@index')
         ->name('admin.logs.index');
 
+
+    Route::get('banlist', 'BanController@index')->name('admin.banuser.index');
+    Route::get('unban/{playable}', 'BanController@destroy')->name('admin.banuser.unban');
+    Route::match(['GET'], 'ban/datatables', 'BanController@dataTable')->name('admin.banuser.datatable');
+    Route::group([
+        'middleware' => ['permission:ban-user'],
+    ], function() {
+        Route::resource('banuser', 'BanUserController')->names([
+            'create' => 'admin.banuser.create',
+            'store' => 'admin.banuser.store',
+            'update' => 'admin.banuser.update',
+            'edit' => 'admin.banuser.edit',
+        ])->except(['index', 'destroy']);
+        Route::resource('banchar', 'BanCharController')->names([
+            'create' => 'admin.banchar.create',
+            'store' => 'admin.banchar.store',
+            'update' => 'admin.banchar.update',
+            'edit' => 'admin.banchar.edit',
+        ])->except(['index', 'destroy']);
+    });
+
 });

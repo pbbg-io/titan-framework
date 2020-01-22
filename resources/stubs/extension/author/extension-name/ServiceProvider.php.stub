@@ -1,18 +1,22 @@
 <?php
 namespace {{namespace}};
 
+use {{namespace}}\Providers\RouteServiceProvider;
+
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
 
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__ . '/resources/views', '{{view_namespace}}');
-        $this->loadRoutesFrom(__DIR__ . '/routes.php');
+        $this->loadViewsFrom(__DIR__ . '/Resources/Views', '{{view_namespace}}');
+        $this->loadTranslationsFrom(__DIR__ . '/Resources/Lang', '{{view_namespace}}');
+        $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations', '{{view_namespace}}');
+
     }
 
     public function register()
     {
-
+        $this->app->register(RouteServiceProvider::class);
     }
 
 }

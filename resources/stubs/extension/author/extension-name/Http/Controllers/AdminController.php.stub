@@ -1,5 +1,5 @@
 <?php
-namespace {{namespace}};
+namespace {{namespace}}\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;

@@ -16,7 +16,7 @@ class CreateBansTable extends Migration
         Schema::create('bans', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->morphs('bannable');
-            $table->string('reason', 255);
+            $table->string('reason', 255)->nullable();
             $table->date('ban_until')->nullable();
             $table->boolean('forever')->nullable();
             $table->timestamps();
@@ -30,6 +30,6 @@ class CreateBansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ban');
+        Schema::dropIfExists('bans');
     }
 }

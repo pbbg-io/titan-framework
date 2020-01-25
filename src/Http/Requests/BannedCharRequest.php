@@ -17,7 +17,7 @@ class BannedCharRequest extends FormRequest
         return [
             'bannable_id' => 'exists:characters,id|required',
             'forever' => 'required_without:ban_until',
-            'reason' => 'required|string|filled|min:5|max:255',
+            'reason' => 'min_if_not_empty:5,15|string|nullable',
             'ban_until' => 'required_without:forever|date|after:today|nullable',
         ];
     }

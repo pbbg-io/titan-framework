@@ -5,18 +5,14 @@
         <div class="card-body">
             <div class="form-group">
                 {!! Form::select('bannable_id', 'Select Character')
-                    ->value(old('bannable_id'))
                     ->options($chars, 'display_name', 'id')
                     ->help('Select the character to ban')
                      ->attrs(['class' => 'char_select']) !!}
                 {!! Form::text('reason', 'Reason for ban')
-                    ->value(old('reason'))
                     ->help('Enter a reason for banning the user')!!}
                 {!! Form::date('ban_until', 'How Long')
-                    ->value(old('ban_until'))
                     ->help('When should they be banned until?') !!}
-                {!! Form::checkbox('forever', 'Forever')
-                    ->checked(old('forever') == 'on') !!}
+                {!! Form::checkbox('forever', 'Forever') !!}
             </div>
         </div>
     </div>

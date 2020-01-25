@@ -6,6 +6,7 @@ use PbbgIo\Titan\Ban;
 use PbbgIo\Titan\Character;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 use Illuminate\Routing\Controller;
 use PbbgIo\Titan\Http\Requests\BannedCharRequest;
 
@@ -29,17 +30,18 @@ class BanCharController extends Controller
      */
     public function store(BannedCharRequest $request)
     {
+
         $char = Character::findOrFail($request->bannable_id);
 
         if($char->placeBan($request->reason, $request->ban_until, $request->forever == 'on'))
         {
             flash()->success($char->display_name . ' has been banned');
-            return redirect()->back()->withInput();
+            return redirect()->route('admin.banchar.edit');
         }
         else
         {
             flash()->success('There was an error banning that player');
-            return redirect()->back()->withInput();
+            return redirect()->back();
         }
     }
 
@@ -65,19 +67,19 @@ class BanCharController extends Controller
         $char = Character::findOrFail($request->bannable_id);
         $ban = Ban::updateOrCreate(
             ['bannable_id' => $request->bannable_id, 'bannable_type' => get_class($char)],
-            ['reason' => $request->reason, 'ban_until' => ($request->ban_until != null ? \Carbon\Carbon::parse($request->ban_until)->toDateString() : null), 'forever' => $request->forever == 'on']
+            ['reason' => $request->reason, 'ban_until' => ($request->ban_until != null ? new Carbon($request->ban_until) : null), 'forever' => $request->forever == 'on']
         );
 
         if($ban->exists())
         {
 
             flash()->success($char->display_name . ' has been banned');
-            return redirect()->back()->withInput();
+            return redirect()->back();
         }
         else
         {
             flash()->success('There was an error banning that player');
-            return redirect()->back()->withInput();
+            return redirect()->back();
         }
     }
 }

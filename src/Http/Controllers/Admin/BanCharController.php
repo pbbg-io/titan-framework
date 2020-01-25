@@ -19,8 +19,8 @@ class BanCharController extends Controller
      */
     public function create()
     {
-        $chars = Character::all();
-        return view('titan::admin.ban.char.create', compact('chars'));
+        $playable = Character::all();
+        return view('titan::admin.ban.char.create', compact('playable'));
     }
 
     /**

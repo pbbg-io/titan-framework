@@ -18,8 +18,8 @@ class BanUserController extends Controller
      */
     public function create()
     {
-        $users = User::all();
-        return view('titan::admin.ban.user.create', compact('users'));
+        $playable = User::all();
+        return view('titan::admin.ban.user.create', compact('playable'));
     }
 
     /**

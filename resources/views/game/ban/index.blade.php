@@ -16,6 +16,6 @@
         @else
             <p>Your are banned for {{ $ban->ban_until->diffForHumans(['parts' => 3]) }}</p>
         @endif
-        <p class="text-muted"><b>Reason: </b>{{ $ban->reason }}</p>
+        <p class="text-muted"><b>Reason: </b>{{ $ban->reason ?? 'No Reason Specified' }}</p>
     </div>
 @endsection

@@ -5,13 +5,9 @@
         <div class="card-body">
             <h3>Editing Ban for {{ $banned->bannable->name }}</h3>
             <div class="form-group">
-                {!! Form::hidden('bannable_id', $banned->bannable->id) !!}
-                {!! Form::text('reason', 'Reason for ban')
-                    ->help('Enter a reason for banning the user')!!}
-                {!! Form::date('ban_until', 'How Long')
-                    ->help('When should they be banned until?') !!}
-                {!! Form::checkbox('forever', 'Forever')
-                    ->checked($banned->forever == 1) !!}
+
+                @include('titan::admin.ban.ban_edit_form')
+
             </div>
         </div>
     </div>
@@ -19,7 +15,7 @@
     <div class="card shadow">
         <div class="card-body">
             {!! Form::submit("Edit Ban")->danger() !!}
-            {!! Form::close() !!}
         </div>
+        {!! Form::close() !!}
     </div>
 @endsection

@@ -48,10 +48,7 @@
         "laravel": {
             "providers": [
                 "PbbgIo\\Titan\\TitanServiceProvider"
-            ],
-            "aliases": {
-                "BanUser": "PbbgIo\\Titan\\Support\\Facades\\Facade"
-            }
+            ]
         }
     },
     "require-dev": {

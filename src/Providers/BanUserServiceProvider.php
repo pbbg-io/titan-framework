@@ -1,9 +1,12 @@
 <?php
 namespace PbbgIo\Titan\Providers;
 
-use PbbgIo\Titan\Http\Middleware\PlayableNotBannedMiddleware;
+use PbbgIo\Titan\Http\Validators\MinIfNotEmpty;
+use PbbgIo\Titan\Http\Validators\MaxIfNotEmpty;
 use PbbgIo\Titan\Support\BanUser;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Validator;
+use PbbgIo\Titan\Http\Middleware\PlayableNotBannedMiddleware;
 
 class BanUserServiceProvider extends ServiceProvider
 {
@@ -15,6 +18,7 @@ class BanUserServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerConfig();
+        $this->validatorExtensions();
     }
 
     /**
@@ -58,7 +62,43 @@ class BanUserServiceProvider extends ServiceProvider
 
     private function loadMiddleware()
     {
-//        app('router')->aliasMiddleware('playable_not_banned', PlayableNotBannedMiddleware::class);
         app('router')->pushMiddlewareToGroup('auth', PlayableNotBannedMiddleware::class);
+    }
+
+    private function validatorExtensions()
+    {
+        Validator::extend('min_if_not_empty', MinIfNotEmpty::class. '@validate');
+        Validator::replacer('min_if_not_empty', function ($message, $attribute, $rule, $parameters) {
+
+            $validatorMessage = "";
+            if(count($parameters) == 1)
+            {
+                $validatorMessage .= "greater than {$parameters[0]} characters";
+            } else {
+                $min = min($parameters);
+                $max = max($parameters);
+
+                $validatorMessage .= "in between {$min} and {$max} characters";
+            }
+
+            return str_replace([':message'], $validatorMessage, $message);
+        });
+
+        Validator::extend('max_if_not_empty', MaxIfNotEmpty::class. '@validate');
+        Validator::replacer('max_if_not_empty', function ($message, $attribute, $rule, $parameters) {
+
+            $validatorMessage = "";
+            if(count($parameters) == 1)
+            {
+                $validatorMessage .= "less than {$parameters[0]} characters";
+            } else {
+                $min = min($parameters);
+                $max = max($parameters);
+
+                $validatorMessage .= "in between {$min} and {$max} characters";
+            }
+
+            return str_replace([':message'], $validatorMessage, $message);
+        });
     }
 }

@@ -73,7 +73,7 @@ class ExtensionController extends Controller
             abort(404, 'No extension was found');
         }
 
-        $call = $this->callExtensionMethod('AdminController', 'index', $extension);
+        $call = $this->callExtensionMethod('Http\Controllers\AdminController', 'index', $extension);
 
         if($call !== false)
             return $call;

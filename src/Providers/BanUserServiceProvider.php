@@ -42,10 +42,10 @@ class BanUserServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            __DIR__.'/../.../Config/ban.php' => config_path('banuser.php'),
+            __DIR__.'/../.../config/ban.php' => config_path('banuser.php'),
         ]);
         $this->mergeConfigFrom(
-            __DIR__.'/../../Config/ban.php', 'banuser'
+            __DIR__.'/../../config/ban.php', 'banuser'
         );
     }
 

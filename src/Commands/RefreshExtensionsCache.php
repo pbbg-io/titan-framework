@@ -50,26 +50,6 @@ class RefreshExtensionsCache extends Command
         $this->getExtensions();
         \Storage::disk('local')->put('extensions.json', json_encode($this->schema));
         $this->info("Extensions have been reloaded");
-
-        $setting = Settings::firstOrNew([
-            'key' => 'remote_version'
-        ]);
-        $setting->value = $this->getRemoteVersion();
-        $setting->save();
-    }
-
-    /**
-     * Get the latest version of the software that's available
-     *
-     * @return string
-     */
-    private function getRemoteVersion(): string
-    {
-
-        $http = new Client();
-        $res = $http->get('https://titan.pbbg.io/api/version')->getBody()->getContents();
-        $res = json_decode($res);
-        return $res->version;
     }
 
     /**

@@ -145,6 +145,7 @@ class MakeExtension extends Command
         $this->askQuestions();
         $this->createExtension();
         exec('composer dump-autoload');
+        exec('php artisan titan:flush');
         $this->info("Extension has been created, have fun building!");
     }
 
@@ -165,10 +166,12 @@ class MakeExtension extends Command
         \File::copyDirectory(dirname(dirname(__DIR__)) . '/resources/stubs/extension/author/extension-name',
             $this->extensionDirectory);
 
-        $this->replaceStub('AdminController.php');
+        $this->replaceStub('Http/Controllers/AdminController.php');
         $this->replaceStub('composer.json');
         $this->replaceStub('InstallController.php');
-        $this->replaceStub('routes.php');
+        $this->replaceStub('Routes/api.php');
+        $this->replaceStub('Routes/web.php');
+        $this->replaceStub('Providers/RouteServiceProvider.php');
         $this->replaceStub('ServiceProvider.php');
 
     }

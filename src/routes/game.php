@@ -9,4 +9,5 @@ Route::group([
     'middleware' => ['auth', 'character_logged_in', 'character_alive']
 ], function () {
     Route::get('/', 'GameHomeController@index')->name('game.home');
+    Route::get('banned', 'BanController@index')->name('userban.userbanned');
 });

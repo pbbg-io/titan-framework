@@ -132,6 +132,12 @@
                 </div>
             </div>
         </li>
+        <li class="nav-item @if(request()->path() === 'admin/banuser') active @endif">
+            <a class="nav-link" href="{{ route('admin.banuser.index') }}">
+                <i class="fas fa-fw fa-user-shield"></i>
+                <span>Bans</span>
+            </a>
+        </li>
         <li class="nav-item @if(\Illuminate\Support\Str::contains(request()->path(), 'admin/areas')) active @endif">
             <a class="nav-link" href="{{ route('admin.areas.index') }}">
                 <i class="fas fa-fw fa-globe"></i>

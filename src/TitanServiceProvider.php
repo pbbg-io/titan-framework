@@ -12,6 +12,7 @@ use PbbgIo\Titan\Commands\SuperAdmin;
 use PbbgIo\Titan\Commands\UpdateTitan;
 use PbbgIo\Titan\Models\Settings;
 use PbbgIo\Titan\Observers\StatObserver;
+use PbbgIo\Titan\Providers\BanUserServiceProvider;
 use PbbgIo\Titan\Providers\ExtensionServiceProvider;
 
 class TitanServiceProvider extends ServiceProvider
@@ -79,6 +80,8 @@ class TitanServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__ . '/../config/titan.php', 'titan'
         );
+
+        $this->app->register(BanUserServiceProvider::class);
 
     }
 }

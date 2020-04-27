@@ -172,8 +172,6 @@ class InstallTitan extends Command
 
     private function saveConfig(): void
     {
-        $this->setEnvironmentValue("APP_NAME", $this->config['game.name']);
-
         \Artisan::call('migrate:fresh');
 
         \Artisan::call('db:seed --class=AreaSeeder');

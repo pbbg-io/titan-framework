@@ -6,7 +6,7 @@ use PbbgIo\Titan\Ban;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-class BanUser
+class BanUserService
 {
     private $user;
     private $forever;
@@ -22,7 +22,7 @@ class BanUser
     }
     /**
      * @param Model $user
-     * @return BanUser
+     * @return BanUserService
      */
     public function setUser($user)
     {
@@ -39,7 +39,7 @@ class BanUser
     }
     /**
      * @param boolean $forever
-     * @return BanUser
+     * @return BanUserService
      */
     public function setForever($forever)
     {
@@ -55,7 +55,7 @@ class BanUser
     }
     /**
      * @param \DateTime $banUntil
-     * @return BanUser
+     * @return BanUserService
      */
     public function setBanUntil($banUntil)
     {
@@ -71,7 +71,7 @@ class BanUser
     }
     /**
      * @param string $reason
-     * @return BanUser
+     * @return BanUserService
      */
     public function setReason($reason)
     {
@@ -87,7 +87,7 @@ class BanUser
     }
     /**
      * @param Model $type
-     * @return BanUser
+     * @return BanUserService
      */
     public function setType(Model $type)
     {

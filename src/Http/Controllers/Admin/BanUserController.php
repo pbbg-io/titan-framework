@@ -9,9 +9,18 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use Illuminate\Routing\Controller;
 use PbbgIo\Titan\Http\Requests\BannedUserRequest;
+use PbbgIo\Titan\Support\BanUserService;
 
 class BanUserController extends Controller
 {
+
+    private $banService;
+
+    public function __construct(BanUserService $banService)
+    {
+        $this->banService = $banService;
+    }
+
     /**
      * Show the form for creating a new resource.
      * @return Response
@@ -29,12 +38,16 @@ class BanUserController extends Controller
      */
     public function store(BannedUserRequest $request)
     {
-        $user = User::findOrFail($request->bannable_id);
+        $bannedUser = $this->banService->setUser(User::findOrFail($request->bannable_id))
+            ->setReason($request->reason)
+            ->setBanUntil($request->ban_until)
+            ->setForever($request->forever == 'on')
+            ->placeBan();
 
-        if($user->placeBan($request->reason, $request->ban_until, $request->forever == 'on'))
+        if($bannedUser)
         {
-            flash()->success($user->name . ' has been banned');
-            return redirect()->route('admin.banuser.edit');
+            flash()->success($bannedUser->bannable->name . ' has been banned');
+            return redirect()->route('admin.banuser.edit', $bannedUser->id);
         }
         else
         {

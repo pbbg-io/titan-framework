@@ -9,10 +9,18 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use Illuminate\Routing\Controller;
 use PbbgIo\Titan\Http\Requests\BannedCharRequest;
-
+use PbbgIo\Titan\Support\BanUserService;
 
 class BanCharController extends Controller
 {
+
+    private $banService;
+
+    public function __construct(BanUserService $banService)
+    {
+        $this->banService = $banService;
+    }
+
     /**
      * Show the form for creating a new resource.
      * @return Response
@@ -30,17 +38,20 @@ class BanCharController extends Controller
      */
     public function store(BannedCharRequest $request)
     {
+        $bannedChar = $this->banService->setUser(Character::findOrFail($request->bannable_id))
+            ->setReason($request->reason)
+            ->setBanUntil($request->ban_until)
+            ->setForever($request->forever == 'on')
+            ->placeBan();
 
-        $char = Character::findOrFail($request->bannable_id);
-
-        if($char->placeBan($request->reason, $request->ban_until, $request->forever == 'on'))
+        if($bannedChar)
         {
-            flash()->success($char->display_name . ' has been banned');
-            return redirect()->route('admin.banchar.edit');
+            flash()->success($bannedChar->bannable->name . ' has been banned');
+            return redirect()->route('admin.banchar.edit', $bannedChar->id);
         }
         else
         {
-            flash()->success('There was an error banning that player');
+            flash()->success('There was an error banning that character');
             return redirect()->back();
         }
     }

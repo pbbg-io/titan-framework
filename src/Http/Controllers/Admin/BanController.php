@@ -7,10 +7,18 @@ use Illuminate\View\View;
 use PbbgIo\Titan\Character;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use PbbgIo\Titan\Support\BanUserService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class BanController extends Controller
 {
+
+    private $banUserService;
+
+    public function __construct(BanUserService $banUserService)
+    {
+        $this->banUserService = $banUserService;
+    }
 
     /**
      * Display a listing of the resource.
@@ -46,7 +54,7 @@ class BanController extends Controller
 
     public function dataTable() :JsonResponse
     {
-        return datatables(\BanUser::getUsersBanned())
+        return datatables($this->banUserService->getUsersBanned())
             ->addColumn('action', function($banned) {
                 $routeUnban = route('admin.banuser.unban', $banned);
                 switch ($banned->bannable_type) {

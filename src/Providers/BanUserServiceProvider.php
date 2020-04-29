@@ -3,7 +3,6 @@ namespace PbbgIo\Titan\Providers;
 
 use PbbgIo\Titan\Http\Validators\MinIfNotEmpty;
 use PbbgIo\Titan\Http\Validators\MaxIfNotEmpty;
-use PbbgIo\Titan\Support\BanUser;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use PbbgIo\Titan\Http\Middleware\PlayableNotBannedMiddleware;
@@ -28,9 +27,6 @@ class BanUserServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        app()->bind(BanUser::class, function() {
-            return new BanUser();
-        });
         $this->loadMiddleware();
     }
 
@@ -50,19 +46,9 @@ class BanUserServiceProvider extends ServiceProvider
     }
 
 
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return [BanUser::class];
-    }
-
     private function loadMiddleware()
     {
-//        app('router')->pushMiddlewareToGroup('auth', PlayableNotBannedMiddleware::class);
+        app('router')->pushMiddlewareToGroup('auth', PlayableNotBannedMiddleware::class);
     }
 
     private function validatorExtensions()

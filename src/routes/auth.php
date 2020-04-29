@@ -31,10 +31,13 @@ Route::post('email/resend', 'Auth\VerificationController@resend')->name('verific
 
 
 Route::get('/characters', 'CharacterController@index')
-    ->name('character.choose.index');
+    ->name('character.choose.index')
+    ->middleware('auth');
 
 Route::post('/character/create', 'CharacterController@create')
-    ->name('character.create');
+    ->name('character.create')
+    ->middleware('auth');
 
 Route::post('/characters', 'CharacterController@choose')
-    ->name('character.choose.submit');
+    ->name('character.choose.submit')
+    ->middleware('auth');

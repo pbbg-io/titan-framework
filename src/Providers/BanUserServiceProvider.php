@@ -48,7 +48,7 @@ class BanUserServiceProvider extends ServiceProvider
 
     private function loadMiddleware()
     {
-        app('router')->pushMiddlewareToGroup('auth', PlayableNotBannedMiddleware::class);
+        app('router')->pushMiddlewareToGroup('web', PlayableNotBannedMiddleware::class);
     }
 
     private function validatorExtensions()

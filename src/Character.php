@@ -92,4 +92,44 @@ class Character extends Model
         return $this->attributes['display_name'] ?? $this->attributes['name'];
     }
 
+    public function addItem(Item $item, int $quantity = 1)
+    {
+        $inventory = $this->items->where('item_id', $item->id)->first();
+
+        if($inventory)
+        {
+            $inventory->increment('quantity', $quantity);
+        }
+        else
+        {
+            $inventory = $this->items()->create([
+                'item_id' => $item->id,
+                'quantity' => $quantity
+            ]);
+        }
+
+        return $inventory;
+    }
+
+    public function removeItem(Item $item, $quantity = 1)
+    {
+        $inventory = $this->items->where('item_id', $item->id)->first();
+
+        if($inventory && $inventory->quantity >= $quantity)
+        {
+            $inventory->decrement('quantity', $quantity);
+
+            if($inventory->quantity == 0)
+            {
+                $inventory->delete();
+            }
+        }
+        else
+        {
+            throw new \InvalidArgumentException('You must provide a valid quantity');
+        }
+
+        return $inventory;
+    }
+
 }

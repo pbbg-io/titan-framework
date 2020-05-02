@@ -2,8 +2,11 @@
 
 namespace PbbgIo\Titan;
 
+use Esemve\Hook\Facades\Hook;
+use Esemve\Hook\HookServiceProvider;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\ServiceProvider;
+use PbbgIo\Titan\Providers\TestServiceProvider;
+use PbbgIo\Titan\Providers\TitanServiceProvider as ServiceProvider;
 use PbbgIo\Titan\Commands\MakeExtension;
 use PbbgIo\Titan\Commands\RefreshExtensionsCache;
 use PbbgIo\Titan\Commands\InstallTitan;
@@ -59,6 +62,11 @@ class TitanServiceProvider extends ServiceProvider
         Stat::observe(StatObserver::class);
 
         $this->app->register(ExtensionServiceProvider::class);
+
+        $this->app->register(HookServiceProvider::class);
+
+        $this->app->register(BanUserServiceProvider::class);
+
     }
 
     /**
@@ -81,7 +89,8 @@ class TitanServiceProvider extends ServiceProvider
             __DIR__ . '/../config/titan.php', 'titan'
         );
 
-        $this->app->register(BanUserServiceProvider::class);
+        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+        $loader->alias('Hook', Hook::class);
 
     }
 }

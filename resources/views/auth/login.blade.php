@@ -1,9 +1,13 @@
 @extends('titan::layouts.app')
 
+@php
+    $enabled_socials = collect(config('services'))->only(['facebook', 'twitter', 'google', 'github'])
+->where('enabled', true);
+@endphp
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="@if($enabled_socials->count() > 0)col-md-8 @else col-md-10 @endif">
             <div class="card">
                 <div class="card-header">{{ __('Login with email') }}</div>
 
@@ -68,13 +72,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="@if($enabled_socials->count() > 0)col-md-3 @else d-none @endif">
             <div class="card">
                 <div class="card-header">{{ __('Login with Social') }}</div>
-                @php
-                $enabled_socials = collect(config('services'))->only(['facebook', 'twitter', 'google', 'github'])
-    ->where('enabled', false);
-                @endphp
                 <div class="card-body">
                     <ul class="list-unstyled">
                         @foreach($enabled_socials as $social => $config)

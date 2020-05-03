@@ -8,6 +8,8 @@
 
 namespace PbbgIo\Titan\Providers;
 
+use Esemve\Hook\Facades\Hook;
+use Esemve\Hook\HookServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use PbbgIo\Titan\Hooks\AddHook;
 
@@ -35,5 +37,10 @@ class TitanServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerHooks();
+
+        $this->app->register(HookServiceProvider::class);
+
+        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+        $loader->alias('Hook', Hook::class);
     }
 }

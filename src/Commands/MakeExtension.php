@@ -145,7 +145,8 @@ class MakeExtension extends Command
         $this->askQuestions();
         $this->createExtension();
         exec('composer dump-autoload -q');
-        exec('php artisan titan:flush');
+//        exec('php artisan titan:flush');
+        $this->call('titan:flush');
         $this->info("Extension has been created, have fun building!");
     }
 

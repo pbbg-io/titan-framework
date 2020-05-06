@@ -179,7 +179,7 @@
 
             @foreach(resolve('extensions')->getCache()->where('enabled', true) as $extension)
                 <li class="nav-item @if(\Illuminate\Support\Str::contains(request()->path(), '/extensions/' . $extension['slug'])) active @endif">
-                    <a class="nav-link" href="{{ route('admin.extensions.manage', $extension['slug']) }}">
+                    <a class="nav-link" href="{{ route('admin.'.\Str::kebab($extension['authors'][0]['name']).'.'.\Str::kebab($extension['name'])) }}">
                         <i class="fas fa-fw fa-folder"></i>
                         <span>{{ ucwords(str_replace('Extensions\\', '', $extension['namespace'])) }}</span>
                     </a>

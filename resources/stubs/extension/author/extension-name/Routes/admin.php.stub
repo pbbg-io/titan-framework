@@ -11,8 +11,9 @@
 |
 */
 Route::group([
-    'prefix' => '{{package_name}}',
+    'prefix' => 'admin/{{package_name}}',
+    'middleware' => ['auth', 'permission:admin']
 ], function () {
-    Route::get('/', 'FrontController@index')
-        ->name('{{route_name}}');
+    Route::get('/', 'AdminController@index')
+        ->name('admin.{{route_name}}');
 });

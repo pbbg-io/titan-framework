@@ -28,6 +28,10 @@ class ExtensionServiceProvider extends ServiceProvider
         $extensions = resolve('extensions')->getCache();
 
         foreach ($extensions as $ext) {
+
+            if(!$ext['enabled'])
+                continue;
+
             $realNameSpace = $ext['namespace'];
             $folderPath = \Str::kebab($ext['namespace']);
             $folderPath = str_replace(['\\-', '\\'], '/', $folderPath);

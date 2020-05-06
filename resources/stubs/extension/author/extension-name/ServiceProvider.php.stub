@@ -8,9 +8,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__ . '/Resources/Views', '{{view_namespace}}');
-        $this->loadTranslationsFrom(__DIR__ . '/Resources/Lang', '{{view_namespace}}');
-        $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations', '{{view_namespace}}');
+        $this->loadViewsFrom(__DIR__ . '/Resources/Views', '{{route_name}}');
+        $this->loadTranslationsFrom(__DIR__ . '/Resources/Lang', '{{route_name}}');
+        $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations');
 
     }
 

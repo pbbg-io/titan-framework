@@ -97,7 +97,7 @@ class MakeExtension extends Command
         $name = $this->answers['name'];
         $kebab = \Str::kebab($name);
         $alphaName = strtolower($name);
-//        $alphaName = preg_replace("/[^A-Za-z\-]/", '', $alphaName);
+        $alphaName = preg_replace("/[^A-Za-z\-]/", '', $alphaName);
         $this->names['alpha_name'] = $kebab;
 
         $author = $this->answers['author'];
@@ -116,6 +116,7 @@ class MakeExtension extends Command
         $this->names['package_author_email'] = $email;
         $this->names['package_friendly_name'] = $name;
         $this->names['package_namespace'] = str_replace('\\', '\\\\', $this->names['namespace']);
+        $this->names['route_name'] = \Str::kebab($author) . '.' . \Str::kebab($name);
 
         $this->extensionDirectory = $this->extensionDirectory . '/' . $this->names['folder'] . '/';
     }
@@ -168,10 +169,12 @@ class MakeExtension extends Command
             $this->extensionDirectory);
 
         $this->replaceStub('Http/Controllers/AdminController.php');
+        $this->replaceStub('Http/Controllers/FrontController.php');
         $this->replaceStub('composer.json');
         $this->replaceStub('InstallController.php');
         $this->replaceStub('Routes/api.php');
         $this->replaceStub('Routes/web.php');
+        $this->replaceStub('Routes/admin.php');
         $this->replaceStub('Providers/RouteServiceProvider.php');
         $this->replaceStub('ServiceProvider.php');
 
@@ -198,7 +201,8 @@ class MakeExtension extends Command
             'package_author' => $this->names['package_author'],
             'package_author_email' => $this->names['package_author_email'],
             'package_friendly_name' => $this->names['package_friendly_name'],
-            'package_namespace' => $this->names['package_namespace']
+            'package_namespace' => $this->names['package_namespace'],
+            'route_name'    =>  $this->names['route_name']
         ];
 
         foreach ($replacements as $key => $value) {

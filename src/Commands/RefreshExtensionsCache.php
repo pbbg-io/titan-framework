@@ -43,13 +43,11 @@ class RefreshExtensionsCache extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
     public function handle(): void
     {
         $this->getExtensions();
-        \Storage::disk('local')->put('extensions.json', json_encode($this->schema));
-        $this->info("Extensions have been reloaded");
     }
 
     /**
@@ -61,10 +59,8 @@ class RefreshExtensionsCache extends Command
     private function getExtensions(): void
     {
 
-        $localExtensions = [];
-
-        $localExtensionFiles = glob(base_path('/extensions/*/*/composer.json'));
-        $localExtensions = resolve('extensions')->getCache();
+        $localExtensionFiles = glob(base_path('extensions/*/*/composer.json'));
+        $localExtensions = collect();
 
         foreach ($localExtensionFiles as $file) {
             $composer = json_decode(file_get_contents($file));
@@ -79,20 +75,19 @@ class RefreshExtensionsCache extends Command
 
             $slug = \Str::kebab(str_replace('\\', '', $composer->extra->titan->namespace));
 
-            if($exists = $localExtensions->firstWhere('slug', $slug))
-            {
+            if ($exists = $localExtensions->firstWhere('slug', $slug)) {
                 $this->info("Found existing extension {$exists['name']}");
             } else {
 
                 $temp = collect();
                 $temp->put('name', $composer->extra->titan->name);
                 $temp->put('description', $composer->description);
-                $temp->put('version','1.0.0');
-                $temp->put('authors',$composer->authors);
-                $temp->put('slug' ,$slug);
+                $temp->put('version', '1.0.0');
+                $temp->put('authors', $composer->authors);
+                $temp->put('slug', $slug);
                 $temp->put('rating', '4.0');
                 $temp->put('ratings', 20);
-                $temp->put('installs',3237);
+                $temp->put('installs', 3237);
                 $temp->put('local', true);
                 $temp->put('enabled', false);
                 $temp->put('namespace', $composer->extra->titan->namespace);
@@ -103,15 +98,28 @@ class RefreshExtensionsCache extends Command
         }
 
 
-        $http = new Client();
-        $res = $http->get('https://titan.pbbg.io/api/extensions')->getBody()->getContents();
-        $extensions = json_decode($res);
-
-        $this->schema['date'] = new Carbon();
-        $this->schema['remote_extensions'] = $extensions;
-        $this->schema['local_extensions'] = $localExtensions;
-
         cache()->put('local_extensions', json_encode($localExtensions));
-        cache()->put('remote_extensions', json_encode($extensions));
+        $this->info('Local extension cache refreshed');
+
+
+        try {
+
+            $http = new Client([
+                'timeout' => 3
+            ]);
+            $res = $http->get('https://titan.pbbg.io/api/extensions')->getBody()->getContents();
+            $extensions = json_decode($res);
+
+            $this->schema['date'] = new Carbon();
+            $this->schema['remote_extensions'] = $extensions;
+            $this->schema['local_extensions'] = $localExtensions;
+
+            cache()->put('remote_extensions', json_encode($extensions));
+
+            \Storage::disk('local')->set('extensions.json', json_encode($this->schema));
+            $this->info("Extensions have been reloaded");
+        } catch (\Exception $exception) {
+            $this->warn("Unable to retrieve remote extension cache, falling back to previous version");
+        }
     }
 }

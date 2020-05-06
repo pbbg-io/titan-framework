@@ -11,7 +11,7 @@ class MakeExtension extends Command
      *
      * @var string
      */
-    protected $signature = 'titan:extension:create';
+    protected $signature = 'titan:make:extension';
 
     /**
      * The console command description.
@@ -60,8 +60,8 @@ class MakeExtension extends Command
      */
     private function askQuestions(): void
     {
-        $this->askQuestion('name', 'What is the name of your extension?', 'Mdg-Dbdb76_nsDDD`');
-        $this->askQuestion('author', 'Who is publishing this extension? Eg your name, team, company', 'pbbg');
+        $this->askQuestion('name', 'What is the name of your extension?', '');
+        $this->askQuestion('author', 'Who is publishing this extension? Eg your name, team, company', '');
         $this->askQuestion('email', 'What is your email?', 'youremail@domain.com');
         $this->askQuestion('description', 'Describe your extension');
 
@@ -144,7 +144,7 @@ class MakeExtension extends Command
         $this->info('First we just need to ask you a few questions to setup the boilerplate');
         $this->askQuestions();
         $this->createExtension();
-        exec('composer dump-autoload');
+        exec('composer dump-autoload -q');
         exec('php artisan titan:flush');
         $this->info("Extension has been created, have fun building!");
     }

@@ -15,3 +15,5 @@ require('jquery-ui');
 require('./nestedSortable');
 
 require('select2/dist/js/select2.min');
+
+require('summernote/dist/summernote-bs4')

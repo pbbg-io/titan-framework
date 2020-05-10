@@ -1,4 +1,4 @@
-@extends('titan::layouts.admin')
+@extends('layouts.admin')
 @section('page')
     <h1 class="h3 mb-4 text-gray-800">Current Item Categories
         <span class="float-right"><a href="{{ route('admin.item-categories.create') }}" class="btn btn-primary">Create new</a> </span></h1>

@@ -10,6 +10,7 @@ use PbbgIo\Titan\Commands\InstallTitan;
 use PbbgIo\Titan\Commands\PublishTitanResources;
 use PbbgIo\Titan\Commands\SuperAdmin;
 use PbbgIo\Titan\Commands\UpdateTitan;
+use PbbgIo\Titan\Http\Middleware\ChooseGameTheme;
 use PbbgIo\Titan\Models\Settings;
 use PbbgIo\Titan\Observers\StatObserver;
 use PbbgIo\Titan\Providers\BanUserServiceProvider;

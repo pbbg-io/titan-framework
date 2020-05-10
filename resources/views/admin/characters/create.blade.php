@@ -1,4 +1,4 @@
-@extends('titan::layouts.admin')
+@extends('layouts.admin')
 
 @section('page')
     {!! \Form::open()->route('admin.characters.store') !!}

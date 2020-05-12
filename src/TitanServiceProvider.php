@@ -2,8 +2,10 @@
 
 namespace PbbgIo\Titan;
 
+use Esemve\Hook\Facades\Hook;
+use Esemve\Hook\HookServiceProvider;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\ServiceProvider;
+use PbbgIo\Titan\Providers\TitanServiceProvider as ServiceProvider;
 use PbbgIo\Titan\Commands\MakeExtension;
 use PbbgIo\Titan\Commands\RefreshExtensionsCache;
 use PbbgIo\Titan\Commands\InstallTitan;
@@ -25,6 +27,7 @@ class TitanServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        parent::boot();
 
         $this->loadRoutesFrom(__DIR__ . '/routes.php');
 
@@ -59,6 +62,9 @@ class TitanServiceProvider extends ServiceProvider
         Stat::observe(StatObserver::class);
 
         $this->app->register(ExtensionServiceProvider::class);
+
+        $this->app->register(BanUserServiceProvider::class);
+
     }
 
     /**
@@ -68,6 +74,8 @@ class TitanServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        parent::register();
+
         $this->app->singleton('menu', function () {
             $menu = Menu::with('items')->whereEnabled(true)->get();
             return $menu;
@@ -80,8 +88,6 @@ class TitanServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__ . '/../config/titan.php', 'titan'
         );
-
-        $this->app->register(BanUserServiceProvider::class);
 
     }
 }

@@ -13,7 +13,7 @@
         }
     ],
     "require": {
-        "cviebrock/eloquent-sluggable": "^6.0",
+        "cviebrock/eloquent-sluggable": "^7.0",
         "yajra/laravel-datatables-oracle": "~9.0",
         "netojose/laravel-bootstrap-4-forms": "^3.0",
         "spatie/laravel-permission": "^3.3",

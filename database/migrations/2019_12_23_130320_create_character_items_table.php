@@ -18,6 +18,7 @@ class CreateCharacterItemsTable extends Migration
             $table->string('name')->nullable();
             $table->unsignedBigInteger('character_id');
             $table->unsignedBigInteger('item_id');
+            $table->unsignedBigInteger('quantity')->default(1);
             $table->timestamps();
 
             $table->foreign('character_id')

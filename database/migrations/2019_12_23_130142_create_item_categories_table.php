@@ -21,7 +21,12 @@ class CreateItemCategoriesTable extends Migration
             $table->unsignedBigInteger('consumable_uses')->default(0);
             $table->boolean('buyable')->default(false);
             $table->boolean('stackable')->default(false);
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('parent_id')
+                ->references('id')
+                ->on('item_categories');
         });
     }
 

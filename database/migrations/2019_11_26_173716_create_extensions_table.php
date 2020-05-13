@@ -15,11 +15,8 @@ class CreateExtensionsTable extends Migration
     {
         Schema::create('extensions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('author');
-            $table->string('url')->nullable();
-            $table->string('version')->default('0.0.1');
             $table->string('slug')->unique();
+            $table->string('namespace');
             $table->timestamps();
         });
     }

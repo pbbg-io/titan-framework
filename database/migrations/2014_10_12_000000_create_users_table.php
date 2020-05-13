@@ -22,6 +22,13 @@ class CreateUsersTable extends Migration
             $table->dateTime('last_move')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+
+            $table->unsignedBigInteger('last_character_played')->nullable();
+
+            $table->foreign('last_character_played')
+                ->references('id')
+                ->on('characters');
         });
     }
 

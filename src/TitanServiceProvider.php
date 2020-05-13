@@ -2,7 +2,6 @@
 
 namespace PbbgIo\Titan;
 
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 use PbbgIo\Titan\Commands\MakeExtension;
 use PbbgIo\Titan\Commands\RefreshExtensionsCache;
@@ -51,7 +50,7 @@ class TitanServiceProvider extends ServiceProvider
             return $user->hasRole('Super Admin') ? true : null;
         });
 
-        \View::composer(['titan::game.*', 'titan::layouts.game'], function ($view) {
+        \View::composer(['game.*', 'layouts.game'], function ($view) {
             $character = \Auth::user()->character;
             $view->with('character', $character);
         });

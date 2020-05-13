@@ -1,4 +1,4 @@
-@extends('titan::layouts.game')
+@extends('layouts.game')
 @section('content')
     <div class="container-fluid">
 

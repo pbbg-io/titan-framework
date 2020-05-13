@@ -3,6 +3,7 @@
 namespace PbbgIo\Titan\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Filesystem\Filesystem;
 
 class PublishTitanResources extends Command
 {
@@ -35,11 +36,22 @@ class PublishTitanResources extends Command
      *
      * @return mixed
      */
-    public function handle()
-    {
-        \Artisan::call('vendor:publish', [
-            '--force'   =>  true,
-            '--tag'    =>  'titan'
-        ]);
-    }
+        public function handle()
+        {
+            \Artisan::call('vendor:publish', [
+                '--force'   =>  true,
+                '--tag'    =>  'titan'
+            ]);
+
+            if(\File::copyDirectory(dirname(dirname(__DIR__)) . '/themes', storage_path('themes')))
+            {
+                \Artisan::call('theme:install',  [
+                    'package' => 'Default'
+                ]);
+                \Artisan::call('theme:install',  [
+                    'package' => 'Admin'
+                ]);
+            }
+
+        }
 }

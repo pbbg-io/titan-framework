@@ -3,7 +3,7 @@
 Route::group([
     'prefix' => 'admin',
     'namespace' => 'Admin',
-    'middleware' => ['auth', 'permission:admin', 'update_last_move'],
+    'middleware' => ['auth', 'permission:admin', 'update_last_move', 'choose_admin_theme'],
 ], function () {
     Route::get('/', 'HomeController@index')
         ->name('admin.home');

@@ -1,1 +1,1 @@
-# Titan Framework
+We are moving repositories over to a new organisation in preperation for 1.0-beta the documentation is also being rewritten from the ground up and forums will be released. We hope this will be sometime in June or July.
